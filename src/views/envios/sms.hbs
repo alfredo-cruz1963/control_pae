@@ -1,0 +1,48 @@
+<div class="container p-3">
+  <div class="row">
+    <div class="col-sm-5 mx-auto">
+      <div class="card">
+        <div class="card-header text-dark" style="background-color: rgba(232, 240, 254, 0.60)">
+          <font size=4>
+            <span class="material-icons text-primary">textsms</span>
+            <strong>Mensajes SMS</strong>
+          </font>
+        </div>
+
+        <div class="card-body">
+          <form action="/mensajes/envio" method="POST">
+            <div class="form-group">
+              Institucion Educativa
+              <select class="custom-select" name="codsede" id="codsede" required>
+                <option selected value="">Seleccione Sede</option>
+                {{#each sedes }}
+                <option value="{{codsede}}">{{nombsede}}</option>
+                {{/each }}
+              </select>
+            </div>
+
+            <div class="comment">
+              Mensaje
+              <textarea class="mensaje" name="mensaje" id="mensaje" placeholder="Mensaje" onkeyup="countChars(this);"
+                maxlength="188" required>
+                            </textarea>
+              <p id="charNum">0/160 characters</p>
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-primary btn-block">
+                Enviar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+  function countChars(obj) {
+    document.getElementById("charNum").innerHTML = obj.value.length - 28 + '/160 characters';
+  }
+</script>

@@ -1,0 +1,539 @@
+<div class="container p-5">
+  <div class="row">
+    <div class="col-sm-10 offset-md-1">
+      <div class="card">
+        <div class="card-header text-dark" style="background-color: rgba(232, 240, 254, 0.60)">
+          <font size=4>
+            <i class="fa fa-thermometer-full text-primary" aria-hidden="true"></i>
+            <strong>Registra medidas antropometrica</strong>
+          </font>
+        </div>
+        <div class="card-body">
+          <form action="/medidas/save/{{tomas.numero}}" method="POST">
+            <font size=1>
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="card card-primary">
+                    <div class="card-body">
+                      <div class="form-group row">
+                        <label for="numero" class="col-sm-3 col-form-label text-right">Dcto:</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" name='numero' id="numero" placeholder="Identificación"
+                            title="Max 10 caracteres" pattern="^([0-9]){6,10}$" value="{{tomas.numero}}" disabled>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="nombre" class="col-sm-3 col-form-label text-right">Nombre:</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" name='nombre' id="nombre" placeholder="Nombre"
+                            title="Max 45 caracteres" pattern="[a-zA-Z0-9áéíóúñŃ#@$&/ ,.'-]{3,45}"
+                            value="{{tomas.nombre}}" disabled>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="curso" class="col-sm-3 col-form-label text-right">Curso:</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" name='curso' id="curso" placeholder="Curso"
+                            title="Max 4 caracteres" pattern="^([0-9]){4,4}$" value="{{tomas.curso}}" disabled>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="fecnac" class="col-sm-3 col-form-label text-right">Fec
+                          Nac:</label>
+                        <div class="col-sm-9">
+                          <input type="date" class="form-control" name='fecnac' id="fecnac" value="{{fecnac}}" max=""
+                            disabled>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <a href="/medidas">Volver</a>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="card card-primary">
+                    <div class="card-body">
+                      <div class="form-group row">
+                        <label for="fvisita" class="col-sm-3 col-form-label text-right">Fvisita</label>
+                        <div class="col-sm-9">
+                          <input type="date" class="form-control" name='fvisita' id="fvisita" value="{{fechoy}}"
+                            min="{{fecnac}}" max="{{fechoy}}" required>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="peso" class="col-sm-3 col-form-label text-right">Peso:</label>
+                        <div class="col-sm-9">
+                          <input type="number" class="form-control" name='peso' id="peso" placeholder="Peso" value="1.0"
+                            step="0.1" min="1" required autofocus>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="talla" class="col-sm-3 col-form-label text-right">Talla:</label>
+                        <div class="col-sm-9">
+                          <input type="number" class="form-control" name='talla' id="talla" placeholder="Talla"
+                            value="38.0" step="0.1" min="38" required>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="meses" class="col-sm-3 col-form-label text-right">meses</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" name='meses' id="meses" disabled>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="card card-primary">
+                    <div class="card-body">
+                      <div class="form-group row">
+                        <label for="zpt" class="col-sm-4 col-form-label text-right">ZP/T</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" name='zpt' id="zpt" disabled>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="zpe" class="col-sm-4 col-form-label text-right">ZP/E</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" name='zpe' id="zpe" disabled>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="zte" class="col-sm-4 col-form-label text-right">ZT/E</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" name='zte' id="zte" disabled>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="zimc" class="col-sm-4 col-form-label text-right">ZIMC</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" name='zimc' id="zimc" disabled>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </font>
+            <div class="card-body text-center">
+              <div class="form-group">
+                <button type="button" id="calcula" class="btn btn-secondary" data-bs-dismiss="modal">Calcular</button>
+                <button class="btn btn-primary" id="envia" disabled>Grabar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+  var lnEdad = 0;
+  var lnMes = 0;
+
+  function init() {
+    cal_fechas();
+    var btnGrafica = document.getElementById("calcula");
+    btnGrafica.addEventListener('click', () => {
+      cal_fechas();
+      calc_ZPT();
+      calc_ZPE();
+      calc_ZTE();
+      calc_ZIMC();
+      document.getElementById('envia').disabled = false;
+      document.getElementById('zpt').disabled = false;
+      document.getElementById('zpe').disabled = false;
+      document.getElementById('zte').disabled = false;
+      document.getElementById('zimc').disabled = false;
+      document.getElementById('meses').disabled = false;
+    });
+  };
+
+  function cal_fechas() {
+    var mFecnac = document.getElementById('fecnac').value;
+    var mFecvis = document.getElementById('fvisita').value;
+    var aFecnac = Date.parse(mFecnac);
+    var mFecnac1 = new Date(aFecnac);
+    var aFecvis = Date.parse(mFecvis);
+    var mFecvis1 = new Date(aFecvis);
+    lnMes = mFecnac1.getMonth() + 1;
+    var lnUnAno = 365.25;
+    var lnUnMes = 30.475;
+    var dif = mFecvis1.getTime() - mFecnac1.getTime();
+    var lnDias = Math.floor(dif / (1000 * 60 * 60 * 24));
+    var lnAnos = Math.floor(lnDias / lnUnAno);
+    var lnMesAux = Math.floor((lnDias - (lnAnos * lnUnAno)) / lnUnMes);
+    lnEdad = Math.floor(lnDias / lnUnMes);
+    document.getElementById('meses').value = lnEdad;
+  };
+
+  function calc_ZPT() {
+    var lnzpt = "";
+    var lnTalAux = 0.0;
+    var limInf = 0.0;
+    var limSup = 0.0;
+    var lnL = 0.0;
+    var lnM = 0.0;
+    var lnS = 0.0;
+    var lnL1 = 0.0;
+    var lnM1 = 0.0;
+    var lnS1 = 0.0;
+    var lnLp = 0.0;
+    var lnMp = 0.0;
+    var lnSp = 0.0;
+    var Talla = document.getElementById('talla').value;
+    var Peso = document.getElementById('peso').value;
+    var lnTalla = parseFloat(Talla);
+    var lnPeso = parseFloat(Peso);
+    var pnMeses = lnEdad;
+
+    if (lnEdad > 60) {
+      lnzpt = "";
+      return;
+    }
+
+    var lnTalAux = lnTalla;
+    var lnMedido = 2;
+
+    if (lnMedido == 1) {
+      lnTalAux = lnTalla;
+    } else {
+      lnTalAux = lnTalla + 0.7;
+    }
+
+    if (lnEdad <= 24) {
+      if (lnTalla < 45 || lnTalAux > 110) {
+        lnzpt = "";
+        return;
+      }
+    }
+
+    if (lnEdad > 24 && lnEdad <= 60) {
+      if (lnTalla < 65 || lnTalAux > 120) {
+        lnzpt = "";
+        return;
+      }
+    }
+
+    if (pnMeses <= 24) {
+      var dtZPT = {{ azpt }
+    };
+  }else {
+    var dtZPT = {{ azpt1 }
+  };
+        }
+
+  limInf = Math.trunc(lnTalAux);
+  var array = [];
+  for (var i in dtZPT) {
+    array.push(dtZPT[i][1]);
+  }
+
+  var idx = array.indexOf(limInf);
+  var lnDecimal = lnTalAux - Math.trunc(lnTalAux);
+  lnDecimal = Math.trunc(lnDecimal * 1000) / 1000;
+
+  if (lnDecimal == 0 || lnDecimal == 0.5) {
+    lnL = dtZPT[idx][2];
+    lnM = dtZPT[idx][3];
+    lnS = dtZPT[idx][4];
+
+    lnLp = lnL;
+    lnMp = lnM;
+    lnSp = lnS;
+  }
+
+  if (lnDecimal > 0 && lnDecimal < 0.5) {
+
+    lnL = dtZPT[idx][2];
+    lnM = dtZPT[idx][3];
+    lnS = dtZPT[idx][4];
+
+    lnL1 = dtZPT[idx + 1][2];
+    lnM1 = dtZPT[idx + 1][3];
+    lnS1 = dtZPT[idx + 1][4];
+
+    lnL = lnL + ((lnL1 - lnL) / 4) * lnDecimal;
+    lnM = lnM + ((lnM1 - lnM) / 4) * lnDecimal;
+    lnS = lnS + ((lnS1 - lnS) / 4) * lnDecimal;
+
+    lnLp = lnL + ((lnL1 - lnL) / 4) * (lnDecimal * 10);
+    lnMp = lnM + ((lnM1 - lnM) / 4) * (lnDecimal * 10);
+    lnSp = lnS + ((lnS1 - lnS) / 4) * (lnDecimal * 10);
+  } else {
+
+    lnL = dtZPT[idx + 1][2];
+    lnM = dtZPT[idx + 1][3];
+    lnS = dtZPT[idx + 1][4];
+
+    lnL1 = dtZPT[idx + 2][2];
+    lnM1 = dtZPT[idx + 2][3];
+    lnS1 = dtZPT[idx + 2][4];
+
+    lnLp = lnL + ((lnL1 - lnL) / 4) * ((lnDecimal - 0.5) * 10);
+    lnMp = lnM + ((lnM1 - lnM) / 4) * ((lnDecimal - 0.5) * 10);
+    lnSp = lnS + ((lnS1 - lnS) / 4) * ((lnDecimal - 0.5) * 10);
+  }
+
+  var lnZscore = (Math.pow((lnPeso / lnMp), lnLp) - 1) / (lnSp * lnLp);
+
+  if (lnZscore >= -3 && lnZscore <= 3) {
+    lnzpt = parseFloat(lnZscore).toFixed(2);
+  }
+
+  if (lnZscore > 3) {
+    lnSd3Pos = Math.pow((lnMp * (1 + (lnLp * lnSp * 3))), (1 / lnLp));
+    lnSd2Pos = Math.pow((lnMp * (1 + (lnLp * lnSp * 2))), (1 / lnLp));
+    lnSd23Pos = lnSd3Pos - lnSd2Pos;
+    lnZscore = 3 + (lnPeso - lnSd3Pos) / lnSd23Pos;
+    lnzpt = parseFloat(lnZscore).toFixed(2);
+  }
+
+  if (lnZscore < -3) {
+    lnSd2Neg = Math.pow((lnMp * (1 + (lnLp * lnSp * -2))), (1 / lnLp));
+    lnSd3Neg = Math.pow((lnMp * (1 + (lnLp * lnSp * -3))), (1 / lnLp));
+    lnSd23Neg = lnSd2Neg - lnSd3Neg;
+    lnZscore = -3 + (lnPeso - lnSd3Neg) / lnSd23Neg;
+    lnzpt = parseFloat(lnZscore).toFixed(2);
+  }
+
+  document.getElementById('zpt').value = lnzpt;
+    };
+
+  function calc_ZPE() {
+    var lnzpe = "";
+    var lnTalAux = 0.0;
+    var lnL = 0.0;
+    var lnM = 0.0;
+    var lnS = 0.0;
+    var lnUnMes = 0;
+    var Talla = document.getElementById('talla').value;
+    var Peso = document.getElementById('peso').value;
+    var lnTalla = parseFloat(Talla);
+    var lnPeso = parseFloat(Peso);
+
+    if (lnMes == 2) {
+      lnUnMes = 1;
+    }
+
+    var pnMeses = lnEdad + lnUnMes;
+
+    if (pnMeses > 60) {
+      lnzpe = "";
+      return;
+    }
+
+    var dtZPE = {{ azpe }
+  };
+  var array = [];
+  for (var i in dtZPE) {
+    array.push(dtZPE[i][1]);
+  }
+
+  var idx = array.indexOf(pnMeses);
+  lnL = dtZPE[idx][2];
+  lnM = dtZPE[idx][3];
+  lnS = dtZPE[idx][4];
+
+  var lnZscore = (Math.pow((lnPeso / lnM), lnL) - 1) / (lnS * lnL);
+
+  if (lnZscore >= -3 && lnZscore <= 3) {
+    lnzpe = parseFloat(lnZscore).toFixed(2);
+  }
+
+  if (lnZscore > 3) {
+    lnSd3Pos = Math.pow((lnM * (1 + (lnL * lnS * 3))), (1 / lnL));
+    lnSd2Pos = Math.pow((lnM * (1 + (lnL * lnS * 2))), (1 / lnL));
+    lnSd23Pos = lnSd3Pos - lnSd2Pos;
+    lnZscore = 3 + (lnPeso - lnSd3Pos) / lnSd23Pos;
+    lnzpe = parseFloat(lnZscore).toFixed(2);
+  }
+
+  if (lnZscore < -3) {
+    lnSd2Neg = Math.pow((lnM * (1 + (lnL * lnS * -2))), (1 / lnL));
+    lnSd3Neg = Math.pow((lnM * (1 + (lnL * lnS * -3))), (1 / lnL));
+    lnSd23Neg = lnSd2Neg - lnSd3Neg;
+    lnZscore = -3 + (lnPeso - lnSd3Neg) / lnSd23Neg;
+    lnzpe = parseFloat(lnZscore).toFixed(2);
+  }
+
+  document.getElementById('zpe').value = lnzpe;
+    };
+
+  function calc_ZTE() {
+    var lnzte = "";
+    var lnTalAux = 0.0;
+    var lnL = 0.0;
+    var lnM = 0.0;
+    var lnS = 0.0;
+    var lnUnMes = 0;
+
+    if (lnEdad > 228) {
+      lnzte = "";
+      return;
+    }
+
+    var Talla = document.getElementById('talla').value;
+    var Peso = document.getElementById('peso').value;
+
+    var lnTalla = parseFloat(Talla);
+    var lnPeso = parseFloat(Peso);
+
+    lnTalAux = lnTalla;
+    const lnMedido = 2;
+
+    if (lnEdad > 24) {
+      if (lnMedido == 1) {
+        lnTalla = lnTalla - 0.7;
+      }
+    } else {
+      lnTalla = lnTalla + 0.7;
+      if (lnMedido == 1) {
+        lnTalla = lnTalAux;
+      }
+    }
+
+    if (lnMes == 2) {
+      lnUnMes = 1;
+    }
+
+    var pnMeses = lnEdad + lnUnMes;
+    var dtZTE = {{ azte }
+  };
+  var array = [];
+  for (var i in dtZTE) {
+    array.push(dtZTE[i][1]);
+  }
+
+  var idx = array.indexOf(pnMeses);
+  lnL = dtZTE[idx][2];
+  lnM = dtZTE[idx][3];
+  lnS = dtZTE[idx][4];
+
+  var lnZscore = (Math.pow((lnTalla / lnM), lnL) - 1) / (lnS * lnL);
+
+  if (lnZscore >= -3 && lnZscore <= 3) {
+    lnzte = parseFloat(lnZscore).toFixed(2);
+  }
+
+  if (lnZscore > 3) {
+    lnSd3Pos = Math.pow((lnM * (1 + (lnL * lnS * 3))), (1 / lnL));
+    lnSd2Pos = Math.pow((lnM * (1 + (lnL * lnS * 2))), (1 / lnL));
+    lnSd23Pos = lnSd3Pos - lnSd2Pos;
+    lnZscore = 3 + (lnPeso - lnSd3Pos) / lnSd23Pos;
+    lnzte = parseFloat(lnZscore).toFixed(2);
+  }
+
+  if (lnZscore < -3) {
+    lnSd2Neg = Math.pow((lnM * (1 + (lnL * lnS * -2))), (1 / lnL));
+    lnSd3Neg = Math.pow((lnM * (1 + (lnL * lnS * -3))), (1 / lnL));
+    lnSd23Neg = lnSd2Neg - lnSd3Neg;
+    lnZscore = -3 + (lnPeso - lnSd3Neg) / lnSd23Neg;
+    lnzte = parseFloat(lnZscore).toFixed(2);
+  }
+
+  document.getElementById('zte').value = lnzte;
+    };
+
+  function calc_ZIMC() {
+    var lnzimc = "";
+    var lnTalAux = 0.0;
+    var lnL = 0.0;
+    var lnM = 0.0;
+    var lnS = 0.0;
+    var lnUnMes = 0;
+
+    if (lnEdad > 228) {
+      lnzte = "";
+      return;
+    }
+
+    var Talla = document.getElementById('talla').value;
+    var Peso = document.getElementById('peso').value;
+
+    var lnTalla = parseFloat(Talla);
+    var lnPeso = parseFloat(Peso);
+
+    lnTalAux = lnTalla;
+    const lnMedido = 2;
+
+    if (lnMedido == 2) {
+      var lnIMC = lnPeso / Math.pow(lnTalla / 100, 2);
+    } else {
+      var lnIMC = lnPeso / Math.pow((lnTalla - 0.7) / 100, 2);
+    }
+    lnIMC = parseFloat(lnIMC).toFixed(2);
+
+    if (lnEdad <= 24) {
+      var lnIMC = lnPeso / Math.pow((lnTalla + 0.7) / 100, 2);
+      if (lnMedido == 2) {
+        var lnIMC = lnPeso / Math.pow((lnTalla + 0.7) / 100, 2);
+      } else {
+        var lnIMC = lnPeso / Math.pow(lnTalla / 100, 2);
+      }
+      lnIMC = parseFloat(lnIMC).toFixed(2);
+    }
+
+    if (lnMes == 2) {
+      lnUnMes = 1;
+    }
+
+    var pnMeses = lnEdad + lnUnMes;
+    var dtZIMC = {{ azimc }
+  };
+  var array = [];
+  for (var i in dtZIMC) {
+    array.push(dtZIMC[i][1]);
+  }
+
+  var idx = array.indexOf(pnMeses);
+  lnL = dtZIMC[idx][2];
+  lnM = dtZIMC[idx][3];
+  lnS = dtZIMC[idx][4];
+
+  var lnZscore = (Math.pow((lnIMC / lnM), lnL) - 1) / (lnS * lnL);
+
+  if (lnZscore >= -3 && lnZscore <= 3) {
+    lnzimc = parseFloat(lnZscore).toFixed(2);
+  }
+
+  if (lnZscore > 3) {
+    lnSd3Pos = Math.pow((lnM * (1 + (lnL * lnS * 3))), (1 / lnL));
+    lnSd2Pos = Math.pow((lnM * (1 + (lnL * lnS * 2))), (1 / lnL));
+    lnSd23Pos = lnSd3Pos - lnSd2Pos;
+    lnZscore = 3 + (lnPeso - lnSd3Pos) / lnSd23Pos;
+    lnzimc = parseFloat(lnZscore).toFixed(2);
+  }
+
+  if (lnZscore < -3) {
+    lnSd2Neg = Math.pow((lnM * (1 + (lnL * lnS * -2))), (1 / lnL));
+    lnSd3Neg = Math.pow((lnM * (1 + (lnL * lnS * -3))), (1 / lnL));
+    lnSd23Neg = lnSd2Neg - lnSd3Neg;
+    lnZscore = -3 + (lnPeso - lnSd3Neg) / lnSd23Neg;
+    lnzimc = parseFloat(lnZscore).toFixed(2);
+  }
+
+  document.getElementById('zimc').value = lnzimc;
+    };
+
+  if (window.addEventListener) {
+    // for W3C DOM
+    window.addEventListener("load", init, false);
+  } else {
+    // legacy IE
+    window.attachEvent("onload", init);
+  }
+</script>

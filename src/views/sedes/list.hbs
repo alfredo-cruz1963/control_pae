@@ -1,0 +1,35 @@
+<div class="container mt-1">
+  <div class="card mb-1">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table id="table-sedes" class="table table-bordered" style="width:100%" cellspacing="0">
+          <thead class="text-white" style="background-color: #165a96">
+            <tr>
+              <td style="font-size:80%;"><strong>Código</strong></td>
+              <td style="font-size:80%;"><strong>Nombre Sede</strong></td>
+              <td style="font-size:80%;"><strong>Municipio</strong></td>
+              <td style="font-size:80%;"><strong>Cupo</strong></td>
+              <td><strong>Acción</strong></td>
+            </tr>
+          </thead>
+          <tbody>
+            {{#if sedes }}
+            {{#each sedes}}
+            <tr>
+              <td style="font-size:70%;">{{codsede}}</td>
+              <td style="font-size:70%;">{{nombsede}}</td>
+              <td style="font-size:70%;">{{mpio}}</td>
+              <td style="font-size:70%;">{{cupo}}</td>
+              <td>
+                <a href="/sedes/edit/{{codsede}}" class="material-icons" title="Editar">create</a>
+                <a href="/sedes/delete/{{codsede}}" class="material-icons text-danger" title="Eliminar">delete</a>
+              </td>
+            </tr>
+            {{/each }}
+            {{/if }}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

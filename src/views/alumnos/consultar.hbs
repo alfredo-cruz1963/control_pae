@@ -1,0 +1,152 @@
+<div class="container p-3">
+  <div class="row">
+    <div class="col-sm-6 offset-md-3">
+      <div class="card">
+        <div class="card-header text-dark" style="background-color: rgba(232, 240, 254, 0.60)">
+          <font size=4>
+            <i class="fa fa-user text-primary" aria-hidden="true"></i>
+            <strong>Consultar Alumno</strong>
+          </font>
+        </div>
+        <div class="card-body">
+
+          <div class="card-body">
+            <div class="form-group row">
+              <label for="fullname" class="col-sm-3 col-form-label text-right">Dcto:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name='numero' id="numero" value="{{datos.numero}}" autofocus
+                  readonly>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="tipo" class="col-sm-3 col-form-label text-right">Tipo
+                Dcto:</label>
+              <div class="col-sm-9">
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="tipo1" name="tipdoc" value="1" readonly class="custom-control-input">
+                  <label class="custom-control-label" for="tipo1">RC</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="tipo2" name="tipdoc" value="2" readonly class="custom-control-input">
+                  <label class="custom-control-label" for="tipo2">TI</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="tipo3" name="tipdoc" value="3" readonly class="custom-control-input">
+                  <label class="custom-control-label" for="tipo3">CC</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="tipo4" name="tipdoc" value="4" readonly class="custom-control-input">
+                  <label class="custom-control-label" for="tipo4">CE</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="fullname" class="col-sm-3 col-form-label text-right">Nombres:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name='nombres' id="nombres" value="{{datos.nombres}}" readonly>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="usenamer" class="col-sm-3 col-form-label text-right">Apellidos:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name='apellidos' id="apellidos" value="{{datos.apellidos}}"
+                  readonly>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="sexo" class="col-sm-3 col-form-label text-right">Sexo:</label>
+              <div class="col-sm-9">
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="sexo1" name="sexo" value="1" class="custom-control-input">
+                  <label class="custom-control-label" for="sexo1" readonly>Masculino</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="sexo2" name="sexo" value="2" class="custom-control-input">
+                  <label class="custom-control-label" for="sexo2" readonly>Femenino</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="usenamer" class="col-sm-3 col-form-label text-right">Fec
+                Nac:</label>
+              <div class="col-sm-9">
+                <input type="date" class="form-control" name='fecnac' id="fecnac" placeholder="Fecha nacimiento"
+                  value="{{datos.mfecnac}}" readonly>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="usenamer" class="col-sm-3 col-form-label text-right">Acudiente</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name='acudiente' id="acudiente"
+                  placeholder="Nombre del acudiente" value="{{datos.acudiente}}" readonly>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="cel" class="col-sm-3 col-form-label text-right">Celular:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name="celular" placeholder="Celular acudiente"
+                  value="{{datos.celular}}" readonly>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="cel" class="col-sm-3 col-form-label text-right">Curso:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name="curso" placeholder="Curso" value="{{datos.curso}}"
+                  readonly>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="cel" class="col-sm-3 col-form-label text-right">Inst Educ:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name="colegio" placeholder="Institucion Educativa"
+                  value="{{sede}}" readonly>
+              </div>
+            </div>
+
+            <div class="mx-auto">
+              <img src="data:image/jpeg;base64, {{ datos.cara }}" />
+              <canvas id="myRostroImg" class="overlay" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function init() {
+    let mtipo = {{ datos.tipdoc }
+  };
+  let msexo = {{ datos.sexo }};
+
+  //let rostroExtract = document.getElementById('rostroExtract')
+  //rostroExtract.src = foto        // canvas.toDataURL()  
+
+  let radiotipo = document.getElementsByName("tipdoc");
+  let radiosexo = document.getElementsByName("sexo");
+
+  for (var i = 0; i < radiotipo.length; i++) {
+    if (radiotipo[i].value == mtipo) {
+      radiotipo[i].checked = true;
+    }
+  }
+
+  for (var i = 0; i < radiosexo.length; i++) {
+    if (radiosexo[i].value == msexo) {
+      radiosexo[i].checked = true;
+    }
+  }
+    }
+
+  window.addEventListener("load", init, false);
+</script>

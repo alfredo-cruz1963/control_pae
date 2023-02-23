@@ -1,0 +1,50 @@
+<div class="container p-3">
+  <div class="row">
+    <div class="col-sm-4 mx-auto">
+      <div class="card">
+        <div class="card-header text-dark" style="background-color: rgba(232, 240, 254, 0.60)">
+          <font size=4>
+            <i class="fa fa-university text-primary" aria-hidden="true"></i>
+            <strong>Add Sede</strong>
+          </font>
+        </div>
+        <div class="card-body">
+          <form action="/sedes/add" method="POST">
+            <div class="form-group">
+              Cód Sede
+              <input type="text" name="codsede" class="form-control" placeholder="Código Sede"
+                title="Recibe solo numeros" pattern="^([0-9]){5,12}$" autofocus required>
+            </div>
+            <div class="form-group">
+              Nombre sede
+              <input type="text" name="nombsede" class="form-control" placeholder="Nombre Sede"
+                title="Max 60 caracteres" pattern="[a-zA-Z0-9áéíóúñŃ#@$&/ ,.'-]{5,60}" required>
+            </div>
+
+            <div class="form-group">
+              <label>Municipios</label>
+              <select class="custom-select" name="codmpio" id="codmpio" required>
+                <option selected disabled>Seleccione un Municipio</option>
+                {{#each ciudades }}
+                <option value="{{codigo}}">{{mpio}}</option>
+                {{/each }}
+              </select>
+            </div>
+
+            <div class="form-group">
+              Alumnos
+              <input type="text" name="cupo" class="form-control" placeholder="Cupo Sede"
+                title="Maximo 5 digitos y solo carácteres numericos." pattern="^([0-9]){1,5}$" required>
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-primary btn-block">
+                Grabar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="container p-3">
+  <div class="row">
+    <div class="col-sm-5 mx-auto">
+      <div class="card">
+        <div class="card-header text-dark" style="background-color: rgba(232, 240, 254, 0.60)">
+          <font size=4>
+            <i class="fa fa-user-plus text-primary" aria-hidden="true"></i>
+            <strong>Add Usuario</strong>
+          </font>
+        </div>
+        <div class="card-body">
+          <form action="/users/add" method="POST">
+            <div class="form-group">
+              Usuario
+              <input type="text" class="form-control" name='username' id="username" placeholder="users"
+                title="Max 20 caracteres" pattern="[a-zA-Z0-9áéíóúñŃ#@$&/ ,.'-]{5,20}" autofocus required>
+            </div>
+            <div class="form-group">
+              Nombre Usuario
+              <input type="text" class="form-control" name='fullname' id="fullname" placeholder="Nombre usuario"
+                title="Max 50 caracteres" pattern="[a-zA-Z0-9áéíóúñŃ#@$&/ ,.'-]{3,50}" required>
+            </div>
+            <div class="form-group">
+              Celular
+              <input type="text" class="form-control" name="cel" placeholder="Celular" title="Recibe solo numeros"
+                pattern="^([0-9]){10,10}$">
+            </div>
+            <div class="form-group">
+              Email
+              <input type="email" class="form-control" name='email' id="email" placeholder="Email"
+                pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" required>
+            </div>
+            <div class="form-group">
+              Sede
+              <select class="custom-select" name="codsede" id="codsede">
+                <option selected value="">(Seleccione sede...)</option>
+                {{#each sedes }}
+                <option value="{{codsede}}">{{nombsede}}</option>
+                {{/each }}
+              </select>
+            </div>
+            <div class="form-group">
+              Roles
+              <select class="custom-select" name="rol" id="rol" required>
+                <option value="">Seleccione</option>
+                <option>Usuario</option>
+                <option>Invitado</option>
+                <option>Administrador</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary btn-block">
+                Grabar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

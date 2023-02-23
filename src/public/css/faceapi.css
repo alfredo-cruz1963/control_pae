@@ -1,0 +1,74 @@
+#tab-alumnos{
+  font-size: 12px;
+}
+
+video1{
+  width:100%;
+  max-width:600px;
+  }
+
+.capturaHuella {
+  left: 0;
+  right: 0;
+  margin: auto; 
+  margin-top: 0px;
+  padding-left: 280px;
+  display: inline-flex !important;
+  width:100%;
+}
+
+@media only screen and (max-width : 992px) {
+  .page-container {
+    padding-left: 0;
+    display: flex !important;
+  }
+}
+
+.center-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.side-by-side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.side-by-side >* {
+  margin: 0 5px;
+}
+
+.margin-sm {
+  margin: 5px;
+}
+
+.margin {
+  margin: 0px;
+}
+
+.button-sm {
+  padding: 0 10px !important;
+}
+
+.pad-sides-sm {
+  padding: 0 8px !important;
+}
+
+#overlay, .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#facesContainer canvas {
+  margin: 0px;
+}
+
+canvas {
+  position: absolute;
+}
+  

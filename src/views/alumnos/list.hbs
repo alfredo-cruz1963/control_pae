@@ -1,0 +1,383 @@
+<script src="/dist/face-api.js"></script>
+{{!--
+<script src="/js/commons.js"></script> --}}
+<script src="/js/faceDetectionControls.js"></script>
+<script src="/js/imageSelectionControls.js"></script>
+<link href="/css/faceapi.css" rel="stylesheet">
+
+<div class="container p-1">
+  <div class="row">
+
+    <div class="col-md-12">
+      <div class="card-header text-center">
+        <button id="btnCrear" class="btn btn-success"><i class="fa fa-plus-square" aria-hidden="true"></i>
+          Adicionar Alumno</button>
+      </div>
+    </div>
+
+    <div class="col-md-12 mx-auto">
+      <div class="card ">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table id="tab-alumnos" class="table table-bordered" style="width:100%" cellspacing="0">
+              <thead class="text-white" style="background-color: #165a96">
+                <tr>
+                  <td style="font-size:90%;"><strong>Documento</strong></td>
+                  <td style="font-size:90%;"><strong>Nombre Alumno</strong></td>
+                  <td style="font-size:90%;"><strong>Edad</strong></td>
+                  <td style="font-size:90%;"><strong>Curso</strong></td>
+                  <td style="font-size:90%;"><strong>Acudiente</strong></td>
+                  <td style="font-size:90%;"><strong>Cedula</strong></td>
+                  <td style="font-size:90%;"><strong>Celular</strong></td>
+                  <td style="font-size:90%;"><strong>Acción</strong></td>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- *************************** empieza el modal Agregar/Editar alumno ******************************* -->
+    <div class="modal fade" id="modalAlumnos" role="dialog" tabindex="0" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"></h5>
+          </div>
+
+          <form id="formAlumnos">
+            <div class="modal-body">
+              <div class="form-group row">
+                <label for="fullname" class="col-sm-3 col-form-label text-right">Dcto:</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name='numero' id="numero" autofocus
+                    placeholder="Número de Identificación" title="Max 10 caracteres" pattern="^([0-9]){6,10}$" required>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="tipo" class="col-sm-3 col-form-label text-right">Tipo
+                  Dcto:</label>
+                <div class="col-sm-9">
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="tipo1" name="tipdoc" value="1" required class="custom-control-input tipdoc">
+                    <label class="custom-control-label" for="tipo1">R C</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="tipo2" name="tipdoc" value="2" required class="custom-control-input tipdoc">
+                    <label class="custom-control-label" for="tipo2">T I</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="tipo3" name="tipdoc" value="3" required class="custom-control-input tipdoc">
+                    <label class="custom-control-label" for="tipo3">C C</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="tipo4" name="tipdoc" value="4" required class="custom-control-input tipdoc">
+                    <label class="custom-control-label" for="tipo4">C E</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="fullname" class="col-sm-3 col-form-label text-right">Nombres:</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name='nombres' id="nombres" placeholder="Nombres alumno"
+                    title="Max 25 caracteres" pattern="[a-zA-Z0-9áéíóúñŃ#@$&/ ,.'-]{3,25}" required>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="usenamer" class="col-sm-3 col-form-label text-right">Apellidos:</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name='apellidos' id="apellidos" placeholder="Apellidos alumno"
+                    title="Max 25 caracteres" pattern="[a-zA-Z0-9áéíóúñŃ#@$&/ ,.'-]{3,25}" required>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="sexo" class="col-sm-3 col-form-label text-right">Sexo:</label>
+                <div class="col-sm-9">
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sexo1" name="sexo" value="1" required class="custom-control-input">
+                    <label class="custom-control-label" for="sexo1">Masculino</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sexo2" name="sexo" value="2" required class="custom-control-input">
+                    <label class="custom-control-label" for="sexo2">Femenino</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="usenamer" class="col-sm-3 col-form-label text-right">Fec Nac:</label>
+                <div class="col-sm-9">
+                  <input type="date" class="form-control" name='fecnac' id="fecnac" placeholder="Fecha nacimiento"
+                    max="" required>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="tipo" class="col-sm-3 col-form-label text-right">Etnia:</label>
+                <div class="col-sm-9">
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="etnia1" name="etnia" value="1" required class="custom-control-input etnia">
+                    <label class="custom-control-label" for="etnia1">INDIG</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="etnia2" name="etnia" value="2" required class="custom-control-input etnia">
+                    <label class="custom-control-label" for="etnia2">AFRO</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="etnia3" name="etnia" value="3" required class="custom-control-input etnia">
+                    <label class="custom-control-label" for="etnia3">RAIZAL</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="etnia4" name="etnia" value="4" required class="custom-control-input etnia">
+                    <label class="custom-control-label" for="etnia4">ROM </label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="etnia5" name="etnia" value="5" checked class="custom-control-input etnia">
+                    <label class="custom-control-label" for="etnia5">SP</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="usenamer" class="col-sm-3 col-form-label text-right">Acudiente</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name='acudiente' id="acudiente"
+                    placeholder="Nombre del acudiente" title="Max 45 caracteres"
+                    pattern="[a-zA-Z0-9áéíóúñŃ#@$&/ ,.'-]{3,45}" required>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="cedula" class="col-sm-3 col-form-label text-right">Cedula:</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name='cedula' id="cedula" autofocus placeholder="Cedula"
+                    title="Max 10 caracteres" pattern="^([0-9]){5,10}$" required>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="cel" class="col-sm-3 col-form-label text-right">Celular:</label>
+                <div class="col-sm-9">
+                  <input type="tel" class="form-control" id="celular" name="celular" placeholder="Celular acudiente"
+                    title="Recibe solo numeros" pattern="^([0-9]){10,10}$">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="email" class="col-sm-3 col-form-label text-right">Curso:</label>
+                <div class="col-sm-5">
+                  <select class="custom-select" name="curso" id="curso" required>
+                    <option selected value="">Seleccione curso</option>
+                    {{#each cursos }}
+                    <option>{{curso}}</option>
+                    {{/each }}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary float-right btnGrabar">nada</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- *************************** termina lo modal agregar/Editar *************************************** -->
+
+    <!-- *************************** comienza modal Face ****************************************** -->
+    <div class="modal fade" id="capturaHuella" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog modal modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"></h5>
+          </div>
+
+          <div class="modal-body">
+            <form id="formCapturaRostro">
+              <div style="position: relative" class="margin">
+                <video onloadedmetadata="onPlay(this)" id="inputVideo" width="460" height="360" autoplay muted
+                  playsinline></video>
+                <canvas id="overlay" />
+              </div>
+
+              <div class="form-group row">
+                <label for="fullname" class="col-sm-3 col-form-label text-right">Documento</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" id="estado" name="estado">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary float-right btnCaptura">Capturar Rostro</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- *************************** termina modal Face ******************************************* -->
+
+    <!-- *************************** Comienza modal Face Grabar *********************************** -->
+    <div class="modal fade" id="modalGrabarFace" tabindex="0" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header faceAdd">
+            <h5 class="modal-title nameAdd">Enroll User</h5>
+          </div>
+          <div class="container"></div>
+          <div class="modal-body">
+            <form id="formEnvioRostro">
+              <div style="position: relative" class="margin">
+                <img id="rostroExtract" src="" width="390" height="390" />
+                <canvas id="rostroImgExtract" class="overlay" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
+            <button type="submit" class="btn btn-success float-right btnGrabaFace" autofocus>Grabar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- *************************** termina modal Face Grabar ************************************ -->
+
+  </div>
+</div>
+
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+  integrity="sha390-9/reFTGAW90EW2RDu2S0VKaIzap3H66lZH90PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.min.js"
+  integrity="sha390-5h4UG+6GOuV9qXh6HqOLwZMY4mnLPraeTrjT5v07o347pj6IkfuoASuGBhfDsp3d" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.0.2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" language="javascript"
+  src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript"
+  src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap5.min.js"></script>
+<script type="text/javascript" src="/js/tablealumnos.js"></script>
+
+<script type="text/javascript">
+
+  let faceMatcher = null
+  let forwardTimes = []
+  let withBoxes = true
+  let images = []
+  var fotoQuery = null
+  var img = null
+  var mCedula
+
+  async function onPlay() {
+    const videoEl = $('#inputVideo').get(0)
+    const canvas = $('#overlay').get(0)
+    const displaySize = { width: videoEl.width, height: videoEl.height };
+    faceapi.matchDimensions(canvas, displaySize);
+
+    if (videoEl.paused || videoEl.ended || !isFaceDetectionModelLoaded())
+      return setTimeout(() => onPlay())
+
+    const options = getFaceDetectorOptions()
+
+    const result = await faceapi
+      .detectSingleFace(videoEl, options)
+      .withFaceLandmarks()
+
+    if (result) {
+      const resizedResult = faceapi.resizeResults(result, displaySize);
+
+      faceapi.draw.drawDetections(canvas, resizedResult)
+      faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
+    }
+    setTimeout(() => onPlay(), 750)
+  }
+
+  async function extraerFace() {
+    const videoEl = $('#inputVideo').get(0)
+    const options = getFaceDetectorOptions()
+
+    const detections = await faceapi.detectAllFaces(videoEl, options)
+    const faceImages = await faceapi.extractFaces(videoEl, detections)
+
+    displayExtractedFaces(faceImages)
+  }
+
+  async function displayExtractedFaces(faceImages) {
+    let rostroExtract = document.getElementById('rostroExtract')
+    const canvas = $('#overlay').get(0)
+    faceapi.matchDimensions(canvas, $('#inputVideo').get(0))
+
+    faceImages.forEach(canvas => {
+      rostroExtract.src = canvas.toDataURL("image/jpeg")
+      const rostro = canvas.toDataURL().split('base64,')[1]                  //('image/png')
+      //const strImage = rostro.replace("data:image/png;base64,", "");
+      fotoQuery = canvas.toDataURL("image/jpeg")
+      console.log("Capturada Imagen")
+      //console.log(fotoQuery)
+    })
+  }
+
+  //CAPTURA ROSTRO - submit para la captura del Rostro
+  $(document).on("click", ".btnGrabaFace", function () {
+    mCedula = $.trim($('#estado').val());
+    let src = fotoQuery.split('base64,')[1]
+
+    //const myFoto = encodeURIComponent(queryImage)
+    data = {
+      src: src
+    }
+
+    $.ajax({
+      url: "/alumnos/updateface/" + mCedula,
+      method: 'POST',
+      contentType: 'application/x-www-form-urlencoded',
+      data: data,
+      success: function (response) {                   //si la petición fue exitosa
+        Swal.fire('El Rostro se Guardo Correctamente!', '', 'success');
+      }
+    });
+
+    $('#modalGrabarFace').modal('hide');
+    $('#capturaHuella').modal('hide');
+  });
+
+
+  function closeModal() {
+    const videoEl = $('#inputVideo').get(0)
+    videoEl.srcObject.getTracks()[0].stop()
+  }
+
+  async function openModal() {        //inicia la Web Cam
+    const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
+    const videoEl = $('#inputVideo').get(0)
+    videoEl.srcObject = stream
+
+    let tabalumnos = $('#tab-alumnos').DataTable();
+    $('#tab-alumnos tbody').on('click', 'tr', function () {
+    });
+  }
+
+  async function run() {
+    await changeFaceDetector(TINY_FACE_DETECTOR)
+    await faceapi.loadFaceLandmarkModel('/')
+    await faceapi.loadFaceRecognitionModel('/')
+    //changeInputSize(224)
+  }
+
+  function updateResults() { }
+
+  $(document).ready(function () {
+    //initFaceDetectionControls()
+    run()
+  })
+</script>

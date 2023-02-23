@@ -1,0 +1,173 @@
+Lo que quieres hacer es crear una URL que puedas pasar al img src del HTML img
+JS
+var url = window.URL || window.webkitURL;
+var imageSrc = url.createObjectURL("your blob");
+document.querySelector("#myimage").src = imageSrc;
+
+'<img src = "data:image/png;base64,' . base64_encode($row['product_image']) . '" width = "50px" height = "50px"/>'
+
+HTML
+<img id="myimage"/>
+
+Método 2 pasar blob a base64
+
+var bufferBase64 = new Buffer( blob, "binary" ).toString("base64");
+
+mostrar imagen
+return <img src={"data:image/jpeg;" + bufferBase64} />
+
+    function decodeBase64Image(dataString){
+        var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+        var response = {};
+
+        if (matches.length !== 3){
+           return new Error('Invalid input string');
+        }
+
+        response.type = matches[1];
+        response.data = new Buffer(matches[2], 'base64');
+
+        return response;
+    }
+
+
+    
+require("fs").writeFile("out.png", strImage, "base64", function(err) {
+console.log(err);
+});
+
+return
+
+//        require("fs").writeFile("out.png", binaryData, "binary", function(err) {
+//            console.log(err); // writes out file without error, but it's not a valid image
+//        })
+
+
+        //var base64Data = myFoto
+ 
+
+        //const binaryData = new Buffer(strImage, 'base64').toString('binary');
+        //const binaryData = strImage.toString('binary');
+        console.log(strImage)
+
+
+var frmData = new FormData;
+        frmData.append("imagen",$("input[name=imagen]")[0].files[0]);
+
+        $.ajax({
+            url: frm.attr("action"),
+            type: frm.attr("method"),
+            data: frmData,
+
+
+//********************************************************************************* */
+    //CAPTURA ROSTRO - submit para la captura del Rostro
+    $(document).on("click", ".btnGrabaFace3", function () {   
+        mCedula = $.trim($('#estado').val());
+        const queryImage = $('#rostroExtract').get(0)
+        const myFoto = queryImage.src
+        //const strImage = myFoto.replace("data:image/png;base64,", "");
+        const strImage = myFoto.replace(/^data:image\/png;base64,/,"")
+
+        const myRostro = encodeURIComponent(strImage)
+        //console.log(strImage)
+
+        $.ajax({
+            url: "/alumnos/updateface/" + mCedula,
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ rostro: myRostro })
+        });
+        Swal.fire('El Rostro se Guardo Correctamente!', '', 'success'); 
+
+        $('#modalGrabarFace').modal('hide');
+        $('#capturaHuella').modal('hide');
+    }); 
+
+    
+    //////////////////////////////////////////////////////////////////////////////////
+    //CAPTURA ROSTRO - submit para la captura del Rostro
+    $(document).on("click", ".btnGrabaFace", function () {   
+        mCedula = $.trim($('#estado').val());
+        const queryImage = $('#rostroExtract').get(0)
+        //const myFoto = queryImage.src
+        //const strImage = myFoto.replace("data:image/png;base64,", "");
+        //const strImage = myFoto.replace(/^data:image\/png;base64,/,"")
+
+        const myFoto = "data:image/png;base64,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"
+        //const myRostro = encodeURIComponent(strImage)
+        //console.log(strImage)
+
+        //var xhr = new XMLHttpRequest()
+        //xhr.open("POST", "/alumnos/updateface/" + mCedula, true)
+        //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+        //xhr.send(encodeURIComponent(strImage))
+        //console.log("paso")
+
+        let xhr = new XMLHttpRequest()
+        let json = JSON.stringify({rostro: myFoto})
+        console.log("paso")
+        console.log(json)
+        xhr.open("POST", "/alumnos/updateface/" + mCedula, true)
+        xhr.setRequestHeader("Content-Type","application/json")
+        xhr.send(json)
+
+
+        /* xhr.onreadystatechange = function(){
+            if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200){
+                console.log("La foto fue enviada")
+            }
+        } */
+        Swal.fire('El Rostro se Guardo Correctamente!', '', 'success'); 
+
+        $('#modalGrabarFace').modal('hide');
+        $('#capturaHuella').modal('hide');
+    }); 
+
+        //CAPTURA ROSTRO - submit para la captura del Rostro
+    $(document).on("click", ".btn1GrabaFace1", function () {   
+        mCedula = $.trim($('#estado').val());
+        const queryImage = $('#rostroExtract').get(0)
+        const myFoto = queryImage.src
+        //const strImage = myFoto.replace("data:image/png;base64,", "");
+        const strImage = myFoto.replace(/^data:image\/png;base64,/,"")
+
+        //const myRostro = encodeURIComponent(strImage)
+        //console.log(strImage)
+
+        $.ajax({
+            url: "/alumnos/updateface/" + mCedula,
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ rostro: strImage })
+        });
+        Swal.fire('El Rostro se Guardo Correctamente!', '', 'success'); 
+
+        $('#modalGrabarFace').modal('hide');
+        $('#capturaHuella').modal('hide');
+    }); 
+
+function uploadFile() {
+    var blobFile = $('#filechooser').files[0];
+    var formData = new FormData();
+    formData.append("fileToUpload", blobFile);
+
+    $.ajax({
+       url: "upload.php",
+       type: "POST",
+       data: formData,
+       processData: false,
+       contentType: false,
+       success: function(response) {
+           // .. hacer algo...
+       },
+       error: function(jqXHR, textStatus, errorMessage) {
+           console.log(errorMessage); // Opcional
+       }
+    });
+}
+
+
+
+
+

@@ -1,0 +1,141 @@
+<div class="container p-2">
+  <div class="row">
+
+    <div class="col-md-12">
+      <div class="card-header">
+        <h5>Alumnos</h5>
+      </div>
+    </div>
+
+    <div class="col-md-12 mx-auto">
+      <div class="card ">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table id="tab-entrega-manual" class="table table-bordered" style="width:100%" cellspacing="0">
+              <thead class="text-white" style="background-color: #165a96">
+                <tr>
+                  <td style="font-size:80%;"><strong>Documento</strong></td>
+                  <td style="font-size:80%;"><strong>Nombre Alumno</strong></td>
+                  <td style="font-size:80%;"><strong>Edad</strong></td>
+                  <td style="font-size:80%;"><strong>Curso</strong></td>
+                  <td style="font-size:80%;"><strong>Acudiente</strong></td>
+                  <td style="font-size:80%;"><strong>Cedula</strong></td>
+                  <td style="font-size:80%;"><strong>Celular</strong></td>
+                  <td style="font-size:80%;"><strong>Acción</strong></td>
+                </tr>
+              </thead>
+              <tbody>
+                {{#if datos }}
+                {{#each datos }}
+                <tr data-user="{{mrol}}">
+                  <td style="font-size:80%;">{{numero}}</td>
+                  <td style="font-size:80%;">{{nombre}}</td>
+                  <td style="font-size:80%;">{{anos}}</td>
+                  <td style="font-size:80%;">{{curso}}</td>
+                  <td style="font-size:80%;">{{acudiente}}</td>
+                  <td style="font-size:80%;">{{cedula}}</td>
+                  <td style="font-size:80%;">{{celular}}</td>
+                  <td>
+                    <a href="#" class="material-icons text-success" id="Editar" name="Editar" title="Add Entregas"
+                      onclick="TraerDatos({{numero}})" data-bs-toggle="modal" data-bs-target="#editaralumno"
+                      data-bs-whatever="@mdo">add_circle_outline</a>
+                  </td>
+                </tr>
+                {{/each }}
+                {{/if }}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- *************************** empieza el modal Editar ******************************* -->
+    <div class="modal fade" id="editaralumno" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header text-white" style="background-color: #7303c0">
+            <h5 class="modal-title" id="exampleModalLabel">Entregas del {{fecha}}</h5>
+          </div>
+          <form action="/entregas/addmanual/" method="POST">
+            <div class="modal-body">
+              <div class="form-group ">
+                Documento
+                <input type="text" class="form-control" name='numero' id="numero" autofocus readonly>
+              </div>
+
+              <div class="form-group">
+                Nombres
+                <input type="text" class="form-control" name='nombres' id="nombres" readonly>
+              </div>
+
+              <div class="form-group">
+                Apellidos
+                <input type="text" class="form-control" name='apellidos' id="apellidos" readonly>
+              </div>
+
+              <div class="form-group">
+                Acudiente
+                <input type="text" class="form-control" name='acudiente' id="acudiente" readonly>
+              </div>
+
+              <div class="form-group ">
+                Cedula
+                <input type="text" class="form-control" name='cedula' id="cedula" readonly>
+              </div>
+
+              <div class="form-group ">
+                Celular
+                <input type="text" class="form-control" name='celular' id="celular" readonly>
+              </div>
+
+              <div class="form-group">
+                Curso
+                <input type="text" class="form-control" name='curso' id="curso" readonly>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" id="Close" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+                <button type="submit" class="btn btn-primary float-right">Enviar</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- *************************** termina lo modal Editar *************************************** -->
+
+
+  </div>
+</div>
+
+<script type="text/javascript">
+
+  function limpiarModal() {
+    document.getElementById("numero").value = "";
+    document.getElementById('nombres').value = "";
+    document.getElementById('apellidos').value = "";
+    document.getElementById('acudiente').value = "";
+    document.getElementById('cedula').value = "";
+    document.getElementById('celular').value = "";
+    document.getElementById('curso').value = "";
+  }
+
+  function TraerDatos(numero) {
+    var mnumero = numero;
+    var mDatos = {{{ aDatos }
+  }};
+  var array = [];
+  for (var i in mDatos) {
+    array.push(parseInt(mDatos[i][0], 10));
+  }
+  var idx = array.indexOf(parseInt(mnumero, 10));
+
+  document.getElementById("numero").value = mDatos[idx][0];
+  document.getElementById('nombres').value = mDatos[idx][2];
+  document.getElementById('apellidos').value = mDatos[idx][3];
+  document.getElementById('acudiente').value = mDatos[idx][6];
+  document.getElementById('cedula').value = mDatos[idx][7];
+  document.getElementById('celular').value = mDatos[idx][8];
+  document.getElementById('curso').value = mDatos[idx][9];
+    }
+</script>

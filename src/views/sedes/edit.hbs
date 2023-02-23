@@ -1,0 +1,51 @@
+<div class="container p-3">
+  <div class="row">
+    <div class="col-sm-4 mx-auto">
+      <div class="card">
+        <div class="card-header text-dark" style="background-color: rgba(232, 240, 254, 0.60)">
+          <font size=4>
+            <i class="fa fa-university text-primary" aria-hidden="true"></i>
+            <strong>Editar Sede</strong>
+          </font>
+        </div>
+        <div class="card-body">
+          <form action="/sedes/edit/{{datos.codsede}}" method="POST">
+            <div class="form-group ">
+              Código sede
+              <input type="text" name="codsede" class="form-control" readonly autofocus value="{{datos.codsede}}"
+                pattern="^([0-9]){5,12}$" required>
+            </div>
+
+            <div class="form-group">
+              Nombre sede
+              <input type="text" name="nombsede" class="form-control" placeholder="Nombre Sede"
+                value="{{datos.nombsede}}" pattern="[a-zA-Z0-9áéíóúñŃ ,.'-]{5,60}" autofocus required>
+            </div>
+
+            <div class="form-group">
+              <label>Municipios</label>
+              <select class="custom-select" name="codmpio" id="codmpio" required>
+                <option selected value="{{datos.codmpio}}">{{datos.mpio}}</option>
+                {{#each ciudad }}
+                <option value="{{codigo}}">{{mpio}}</option>
+                {{/each }}
+              </select>
+            </div>
+
+            <div class="form-group">
+              Cupo
+              <input type="text" name="cupo" class="form-control" placeholder="Cupo Sede" value="{{datos.cupo}}"
+                title="Maximo 5 digitos y solo carácteres numericos." pattern="^([0-9]){1,5}$" required>
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-primary btn-block">
+                Actualizar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<br>
+<div class="row">
+  <div class="col-md-8 mx-auto ">
+    <div class="row">
+      <div class="col-10 col-sm-7">
+        <div class="card ">
+          <div class="card-header text-dark" style="background-color: rgba(232, 240, 254, 0.60)">
+            <font size=4>
+              <i class="fa fa-list-alt text-primary mr-1" aria-hidden="true"></i>
+              <strong>Lista de entregas</strong>
+            </font>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table id="tab-config" class="table table-striped table-bordered mt-3" style="width:100%">
+                <thead style="background-color: #337ab7">
+                  <tr style="color: white !important">
+                    <td style="font-size:80%;"><strong>Id</strong></td>
+                    <td style="font-size:80%;"><strong>Fecha</strong></td>
+                    <td style="font-size:80%;"><strong># Entrega</strong></td>
+                    <td style="font-size:80%;"><strong>Acción</strong></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#if config }}
+                  {{#each config }}
+                  <tr>
+                    <td style="font-size:80%;">{{id}}</td>
+                    <td style="font-size:80%;">{{mfecha}}</td>
+                    <td style="font-size:80%;">{{id_ent}}</td>
+                    <td>
+                      <a href="/config/update/{{id}}" class="material-icons btn-xs btn-primary" name="Editar"
+                        title="Edita el registro">create</a>
+                      <a href="/config/delete/{{id}}" class="material-icons btn-xs btn-danger" name="Delete"
+                        title="Borra el Registro">delete</a>
+                    </td>
+                  </tr>
+                  {{/each }}
+                  {{/if }}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-10 col-sm-5">
+        <div class="card ">
+          <div class="card-header text-dark" style="background-color: rgba(232, 240, 254, 0.60)">
+            <font size=4>
+              <i class="fa fa-plus-circle text-primary mr-1" aria-hidden="true"></i>
+              <strong>Add número de entrega</strong>
+            </font>
+          </div>
+          <div class="card-body">
+            <form action="/config/add" method="POST">
+              <div class="form-group">
+                Fecha Inicio
+                <input type="date" name="fecha" placeholder="Fecha" class="form-control" autofocus>
+              </div>
+              <div class="form-group">
+                Entrega número
+                <input type="number" name="id_ent" placeholder="Numero de Entrega" class="form-control">
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">
+                Grabar
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#tab-config').DataTable({
+    "columnDefs": [
+      { "width": "15%", "targets": 3 }
+    ]
+  });
+
+</script>

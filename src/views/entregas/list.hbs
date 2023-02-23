@@ -1,0 +1,281 @@
+<script src="/dist/face-api.js"></script>
+{{!--
+<script src="/js/commons.js"></script> --}}
+<script src="/js/faceDetectionControls.js"></script>
+<script src="/js/imageSelectionControls.js"></script>
+<link href="/css/faceapi.css" rel="stylesheet">
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card-header" style="background-color: #fff">
+        <h6>Entregas del {{fecha}}</h6>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="card-header text-center">
+        <button type="button" class="btn btn-success btnFinger" data-bs-toggle="modal" data-bs-target="#capturaHuella"
+          data-bs-whatever="@mdo"><i class="fa fa-plus-square" aria-hidden="true"></i> Entregas Alumno</button>
+      </div>
+    </div>
+
+    <font size=2>
+      <div class="col-md-12 mx-auto">
+        <div class="card ">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table id="tab-entregas" class="table table-bordered" style="width:100%" cellspacing="0">
+                <thead class="text-white" style="background-color: #165a96">
+                  <tr>
+                    <td style="font-size:100%;"><strong>Documento</strong></td>
+                    <td style="font-size:100%;"><strong>Nombre Alumno</strong></td>
+                    <td style="font-size:100%;"><strong>Edad</strong></td>
+                    <td style="font-size:100%;"><strong>Curso</strong></td>
+                    <td style="font-size:100%;"><strong>Acudiente</strong></td>
+                    <td style="font-size:100%;"><strong>Cedula</strong></td>
+                    <td style="font-size:100%;"><strong>Acción</strong></td>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </font>
+    <!-- *************************** comienza modal huella ****************************************** -->
+    <div class="modal fade" id="capturaHuella" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog modal modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header text-white" style="background-color: #7303c0">
+            <h5 class="modal-title">Identificar Usuario</h5>
+          </div>
+          <div class="container"></div>
+          <div class="modal-body">
+            <form id="formCapturaRostro">
+              <div style="position: relative" class="margin">
+                <video onloadedmetadata="onPlay(this)" id="inputVideo" width="460" height="360" autoplay muted
+                  playsinline></video>
+                <canvas id="overlay" />
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary float-right btnCaptura">Identificar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- *************************** termina modal huella ******************************************* -->
+
+    <!-- *************************** Comienza modal Mostrar Face *********************************** -->
+    <div class="modal fade" id="modalMostrarFace" tabindex="0" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-sl">
+        <div class="modal-content">
+          <div class="modal-header text-white" style="background-color: #03c01c">
+            <h5 class="modal-title nameAdd">Identifica Rostro</h5>
+          </div>
+          <div class="container"></div>
+          <div class="modal-body">
+            <form id="formGrabarRostro">
+              <div class="row">
+                <div class="col-xs-6 col-sm-6">
+                  <div class="card card-primary">
+                    <div class="card-body">
+                      <div style="position: relative" class="margin">
+                        <img id="rostroDB" src="" width="180" height="200" />
+                        <canvas id="rostroDB" class="overlay" />
+                      </div>
+                      </br>
+                      <div class="form-group">
+                        <input type="text" class="form-control" id="estado" name="estado" readonly>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xs-6 col-sm-6">
+                  <div class="card card-primary">
+                    <div class="card-body">
+                      <div style="position: relative" class="margin">
+                        <img id="rostroExtract" src="" width="180" height="200" />
+                      </div>
+
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+                        <button type="submit" class="btn btn-primary float-right btnGrabar">Enviar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- *************************** termina modal Mostrar Face ******************************* -->
+  </div>
+</div>
+
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+  integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.min.js"
+  integrity="sha384-5h4UG+6GOuV9qXh6HqOLwZMY4mnLPraeTrjT5v07o347pj6IkfuoASuGBhfDsp3d" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.0.2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" language="javascript"
+  src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript"
+  src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap5.min.js"></script>
+<script type="text/javascript" src="/js/tableentregas.js"></script>
+
+<script type="text/javascript">
+  let faceMatcher = null
+  let forwardTimes = []
+  let withBoxes = true
+  let images = []
+  var fotoQuery
+  var distance
+  var myCedula
+  const mcodSede = {{ user.codsede }}
+  //let tablaEntregas = $('#tab-entregas').DataTable()
+
+  async function onPlay() {
+    const videoEl = $('#inputVideo').get(0)
+    const canvas = $('#overlay').get(0)
+    const displaySize = { width: videoEl.width, height: videoEl.height };
+    faceapi.matchDimensions(canvas, displaySize);
+
+    if (videoEl.paused || videoEl.ended || !isFaceDetectionModelLoaded())
+      return setTimeout(() => onPlay())
+
+    const options = getFaceDetectorOptions()
+
+    const result = await faceapi
+      .detectSingleFace(videoEl, options)
+      .withFaceLandmarks()
+
+    if (result) {
+      const resizedResult = faceapi.resizeResults(result, displaySize);
+
+      faceapi.draw.drawDetections(canvas, resizedResult)
+      faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
+    }
+    setTimeout(() => onPlay(), 750)
+  }
+
+  async function extraerFace() {
+    const videoEl = $('#inputVideo').get(0)
+    const options = getFaceDetectorOptions()
+
+    const detections = await faceapi.detectAllFaces(videoEl, options)
+    const faceImages = await faceapi.extractFaces(videoEl, detections)
+
+    displayExtractedFaces(faceImages)
+  }
+
+  function displayExtractedFaces(faceImages) {
+    const canvas = $('#overlay').get(0)
+    faceapi.matchDimensions(canvas, $('#inputVideo').get(0))
+
+    faceImages.forEach(canvas => {
+      rostroExtract.src = canvas.toDataURL("image/jpeg")
+      //const rostro = canvas.toDataURL().split('base64,')[1] 
+      //fotoQuery = canvas.toDataURL("image/jpeg")
+      //console.log("Capturada Imagen")
+      //console.log(fotoQuery)
+    })
+
+    identificar()
+  }
+
+  async function identificar() {
+    var identifica
+    //Imagen a Identificar
+    const queryImage = $('#rostroExtract').get(0)
+    const singleQuery = await faceapi.computeFaceDescriptor(queryImage)
+
+    for (i = 0; i < datos.length; i++) {
+      identifica = false
+      var numero = datos[i].numero
+      var imagenDB = datos[i].cara
+
+      if (imagenDB != null) {
+        //Imagen en la BD    
+        images = imagenDB
+
+        var rostroDB = document.getElementById('rostroDB')
+        rostroDB.src = `data:image/jpeg;base64,${images}`
+        var canvas = $('#overlay').get(0)
+
+        var referenceImagen = $('#rostroDB').get(0)
+        var descriptor = await faceapi.computeFaceDescriptor(referenceImagen)
+        var labeledDescriptors = new faceapi.LabeledFaceDescriptors(numero, [descriptor])
+
+        var faceMatcher = new faceapi.FaceMatcher(labeledDescriptors)
+
+        // Outputs "unknown"
+        var bestMatch = faceMatcher.findBestMatch(singleQuery);
+
+        if (bestMatch.label != "unknown") {
+          //console.log(bestMatch)
+          //console.log(bestMatch.toString())
+          identifica = true
+          myCedula = bestMatch.label
+          //alert(bestMatch.label + " ("+bestMatch.distance+")") 
+          break
+        }
+      }
+    }
+
+    if (identifica) {
+      $('#modalMostrarFace').modal('show');
+      document.getElementById('estado').value = myCedula
+      //Swal.fire('Identificado = ' + myCedula, '', 'success');
+    } else {
+      Swal.fire('No se pudo Identificar!', '', 'error');
+    }
+  }
+
+  function traer_datos() {
+    $.ajax({
+      url: "/alumnos/searchFace/" + mcodSede,
+      method: 'POST',
+      contentType: "application/json",
+      success: function (res) {           //si la petición fue exitosa
+        datos = res
+        //console.log(datos)
+        //console.log("datos traidos")
+      }
+    });
+  }
+
+  function closeModal() {
+    const videoEl = $('#inputVideo').get(0)
+    videoEl.srcObject.getTracks()[0].stop()
+  }
+
+  async function openModal() {        //inicia la Web Cam
+    const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
+    const videoEl = $('#inputVideo').get(0)
+    videoEl.srcObject = stream
+  }
+
+  async function run() {
+    await changeFaceDetector(TINY_FACE_DETECTOR)
+    await faceapi.loadFaceLandmarkModel('/')
+    await faceapi.loadFaceRecognitionModel('/')
+    //changeInputSize(224)
+    traer_datos()
+  }
+
+  function updateResults() { }
+
+  $(document).ready(function () {
+    run()
+  })
+</script>
