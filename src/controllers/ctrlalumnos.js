@@ -185,6 +185,8 @@ ctrlalumnos.consultar = async (req, res) => {
     [numero]
   );
 
+  console.log(datos)
+
   if (datos.length == 0) {
     req.flash(
       "message",
