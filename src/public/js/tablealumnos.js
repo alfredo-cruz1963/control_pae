@@ -295,7 +295,7 @@ $(document).ready(function () {
         }),
         success: function (data) {
           tablaAlumnos.ajax.reload(null, false);
-          console.log(data)
+          //console.log(data)
         },
       });
       Swal.fire("El Alumno se Actualizo Correctamente!", "", "success");

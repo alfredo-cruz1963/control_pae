@@ -85,7 +85,7 @@ ctrlalumnos.updateface = async (req, res) => {
   const { numero } = req.params;
   const { src } = req.body;
 
-  const newFace = { cara: src };
+  const newFace = { cara: src };n
 
   await pool.query(
     "UPDATE beneficiario set ? WHERE numero = ?",
@@ -185,9 +185,7 @@ ctrlalumnos.consultar = async (req, res) => {
     [numero]
   );
 
-  console.log(datos)
-
-  if (datos.length == 0) {
+   if (datos.length == 0) {
     req.flash(
       "message",
       "El Alumno con numero de documento " + numero + ", NO existe."
