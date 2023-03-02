@@ -237,9 +237,8 @@
           <div class="modal-body">
             <form id="formEnvioRostro">
               <div style="position: relative" class="margin">
-                <img id="rostroExtract" src="" width="390" height="390" />
-                <canvas id="rostroImgExtract" class="overlay" 
-              </div>
+                <img id="rostroExtract" src="" width="280" height="300" />
+                <canvas id="rostroImgExtract" class="overlay" </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -280,6 +279,13 @@
     const videoEl = $('#inputVideo').get(0)
     const canvas = $('#overlay').get(0)
     const displaySize = { width: videoEl.width, height: videoEl.height };
+
+    //if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
+    //  console.log("Let's get this party started")
+    //}
+    //navigator.mediaDevices.getUserMedia({video: true, facingMode: 'user'})  //Selecciona la camara frontal
+    //navigator.mediaDevices.getUserMedia({video: true, facingMode: { exact: 'environment'})   //Selecciona la camara posterior en un movil
+
     faceapi.matchDimensions(canvas, displaySize);
 
     if (videoEl.paused || videoEl.ended || !isFaceDetectionModelLoaded())
@@ -320,7 +326,7 @@
       const rostro = canvas.toDataURL().split('base64,')[1]                  //('image/png')
       //const strImage = rostro.replace("data:image/png;base64,", "");
       fotoQuery = canvas.toDataURL("image/jpeg")
-      console.log("Capturada Imagen")
+      //console.log("Capturada Imagen")
       //console.log(fotoQuery)
     })
   }
