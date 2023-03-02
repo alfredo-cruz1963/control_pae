@@ -227,20 +227,22 @@
     <!-- *************************** termina modal Face ******************************************* -->
 
     <!-- *************************** Comienza modal Face Grabar *********************************** -->
-    <div class="modal fade" id="modalGrabarFace" tabindex="0" aria-hidden="true" data-backdrop="static">
+    <div class="modal fade" id="modalGrabarFace" aria-labelledby="modalLabel" aria-hidden="true">
+    {{!-- <div class="modal fade" id="modalGrabarFace" tabindex="0" aria-hidden="true" data-backdrop="static"> --}}
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header faceAdd">
             <h5 class="modal-title nameAdd">Enroll User</h5>
           </div>
-          <div class="container"></div>
+        
           <div class="modal-body">
             <form id="formEnvioRostro">
               <div style="position: relative" class="margin">
                 <img id="rostroExtract" src="" width="200" height="220" />
-                <canvas id="rostroImgExtract" class="overlay" </div>
+                {{!-- <canvas id="rostroImgExtract" class="overlay"> --}}
             </form>
           </div>
+
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
             <button type="submit" class="btn btn-success float-right btnGrabaFace" autofocus>Grabar</button>
