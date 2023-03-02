@@ -2,10 +2,19 @@
   font-size: 12px;
 }
 
-video1{
+#tab-entregas{
+  font-size: 12px;
+}
+
+inputVideo{
   width:100%;
   max-width:600px;
-  }
+}
+
+video {
+  max-width: 100%;
+  height: auto;
+}
 
 .capturaHuella {
   left: 0;

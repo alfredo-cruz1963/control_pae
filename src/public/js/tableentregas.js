@@ -25,12 +25,12 @@ $(document).ready(function () {
     ],
     columnDefs: [
       { width: "8%", targets: 0 },
-      { width: "25%", targets: 1 },
+      { width: "35%", targets: 1 },
       { width: "8%", targets: 2 },
       { width: "8%", targets: 3 },
       { width: "25%", targets: 4 },
       { width: "8%", targets: 5 },
-      { width: "5%", targets: 6 },
+      { width: "8%", targets: 6 },
     ],
     language: {
       lengthMenu: "Mostrar _MENU_ registros",
