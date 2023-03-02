@@ -16,12 +16,17 @@ video {
   height: auto;
 }
 
-canvas {
+.rostroExtract {
   max-width: 100%;
   height: auto;
   display: block;
 }
 
+canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 
 @media only screen and (max-width : 992px) {
   .page-container {
