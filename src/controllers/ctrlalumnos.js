@@ -85,7 +85,7 @@ ctrlalumnos.updateface = async (req, res) => {
   const { numero } = req.params;
   const { src } = req.body;
 
-  const newFace = { cara: src };n
+  const newFace = { cara: src };
 
   await pool.query(
     "UPDATE beneficiario set ? WHERE numero = ?",

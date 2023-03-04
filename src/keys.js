@@ -2,7 +2,7 @@
 
 module.exports = {
 
- /* 
+ 
   database: {
           connectionLimit: 5000,
           host: 'localhost',
@@ -10,9 +10,9 @@ module.exports = {
           password: 'root',
           database: 'web_db_pae'
       }  
-  */
+  
  
-      
+ /*      
   database: {
     connectionLimit: 1000,
     host: 'suditecsas.com',
@@ -21,7 +21,7 @@ module.exports = {
     database: 'u462945902_PAE',
     DB_PORT: 3306
   } 
- 
+  */
 
 };
 
