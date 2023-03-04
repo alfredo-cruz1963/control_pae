@@ -280,8 +280,8 @@
   async function onPlay() {
     const videoEl = $('#inputVideo').get(0)
     const canvas = $('#overlay').get(0)
-    const displaySize = { width: videoEl.width, height: videoEl.height };
-
+    //const displaySize = { width: videoEl.width, height: videoEl.height };
+    const displaySize = { width: window.innerWidth, height: window.innerHeight };
     //if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
     //  console.log("Let's get this party started")
     //}

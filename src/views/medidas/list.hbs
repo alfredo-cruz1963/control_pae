@@ -168,7 +168,8 @@
   async function onPlay() {
     const videoEl = $('#inputVideo').get(0)
     const canvas = $('#overlay').get(0)
-    const displaySize = { width: videoEl.width, height: videoEl.height };
+    //const displaySize = { width: videoEl.width, height: videoEl.height };
+    const displaySize = { width: window.innerWidth, height: window.innerHeight };
     faceapi.matchDimensions(canvas, displaySize);
 
     if (videoEl.paused || videoEl.ended || !isFaceDetectionModelLoaded())
