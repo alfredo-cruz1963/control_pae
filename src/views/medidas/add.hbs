@@ -229,89 +229,87 @@
     }
 
     if (pnMeses <= 24) {
-      var dtZPT = {{ azpt }
-    };
-  }else {
-    var dtZPT = {{ azpt1 }
+        var dtZPT = {{ azpt }};
+      }else {
+        var dtZPT = {{ azpt1 }};
+      }
+
+    limInf = Math.trunc(lnTalAux);
+    var array = [];
+    for (var i in dtZPT) {
+      array.push(dtZPT[i][1]);
+    }
+
+    var idx = array.indexOf(limInf);
+    var lnDecimal = lnTalAux - Math.trunc(lnTalAux);
+    lnDecimal = Math.trunc(lnDecimal * 1000) / 1000;
+
+    if (lnDecimal == 0 || lnDecimal == 0.5) {
+      lnL = dtZPT[idx][2];
+      lnM = dtZPT[idx][3];
+      lnS = dtZPT[idx][4];
+
+      lnLp = lnL;
+      lnMp = lnM;
+      lnSp = lnS;
+    }
+
+    if (lnDecimal > 0 && lnDecimal < 0.5) {
+
+      lnL = dtZPT[idx][2];
+      lnM = dtZPT[idx][3];
+      lnS = dtZPT[idx][4];
+
+      lnL1 = dtZPT[idx + 1][2];
+      lnM1 = dtZPT[idx + 1][3];
+      lnS1 = dtZPT[idx + 1][4];
+
+      lnL = lnL + ((lnL1 - lnL) / 4) * lnDecimal;
+      lnM = lnM + ((lnM1 - lnM) / 4) * lnDecimal;
+      lnS = lnS + ((lnS1 - lnS) / 4) * lnDecimal;
+
+      lnLp = lnL + ((lnL1 - lnL) / 4) * (lnDecimal * 10);
+      lnMp = lnM + ((lnM1 - lnM) / 4) * (lnDecimal * 10);
+      lnSp = lnS + ((lnS1 - lnS) / 4) * (lnDecimal * 10);
+    } else {
+
+      lnL = dtZPT[idx + 1][2];
+      lnM = dtZPT[idx + 1][3];
+      lnS = dtZPT[idx + 1][4];
+
+      lnL1 = dtZPT[idx + 2][2];
+      lnM1 = dtZPT[idx + 2][3];
+      lnS1 = dtZPT[idx + 2][4];
+
+      lnLp = lnL + ((lnL1 - lnL) / 4) * ((lnDecimal - 0.5) * 10);
+      lnMp = lnM + ((lnM1 - lnM) / 4) * ((lnDecimal - 0.5) * 10);
+      lnSp = lnS + ((lnS1 - lnS) / 4) * ((lnDecimal - 0.5) * 10);
+    }
+
+    var lnZscore = (Math.pow((lnPeso / lnMp), lnLp) - 1) / (lnSp * lnLp);
+
+    if (lnZscore >= -3 && lnZscore <= 3) {
+      lnzpt = parseFloat(lnZscore).toFixed(2);
+    }
+
+    if (lnZscore > 3) {
+      lnSd3Pos = Math.pow((lnMp * (1 + (lnLp * lnSp * 3))), (1 / lnLp));
+      lnSd2Pos = Math.pow((lnMp * (1 + (lnLp * lnSp * 2))), (1 / lnLp));
+      lnSd23Pos = lnSd3Pos - lnSd2Pos;
+      lnZscore = 3 + (lnPeso - lnSd3Pos) / lnSd23Pos;
+      lnzpt = parseFloat(lnZscore).toFixed(2);
+    }
+
+    if (lnZscore < -3) {
+      lnSd2Neg = Math.pow((lnMp * (1 + (lnLp * lnSp * -2))), (1 / lnLp));
+      lnSd3Neg = Math.pow((lnMp * (1 + (lnLp * lnSp * -3))), (1 / lnLp));
+      lnSd23Neg = lnSd2Neg - lnSd3Neg;
+      lnZscore = -3 + (lnPeso - lnSd3Neg) / lnSd23Neg;
+      lnzpt = parseFloat(lnZscore).toFixed(2);
+    }
+
+    document.getElementById('zpt').value = lnzpt;
   };
-        }
-
-  limInf = Math.trunc(lnTalAux);
-  var array = [];
-  for (var i in dtZPT) {
-    array.push(dtZPT[i][1]);
-  }
-
-  var idx = array.indexOf(limInf);
-  var lnDecimal = lnTalAux - Math.trunc(lnTalAux);
-  lnDecimal = Math.trunc(lnDecimal * 1000) / 1000;
-
-  if (lnDecimal == 0 || lnDecimal == 0.5) {
-    lnL = dtZPT[idx][2];
-    lnM = dtZPT[idx][3];
-    lnS = dtZPT[idx][4];
-
-    lnLp = lnL;
-    lnMp = lnM;
-    lnSp = lnS;
-  }
-
-  if (lnDecimal > 0 && lnDecimal < 0.5) {
-
-    lnL = dtZPT[idx][2];
-    lnM = dtZPT[idx][3];
-    lnS = dtZPT[idx][4];
-
-    lnL1 = dtZPT[idx + 1][2];
-    lnM1 = dtZPT[idx + 1][3];
-    lnS1 = dtZPT[idx + 1][4];
-
-    lnL = lnL + ((lnL1 - lnL) / 4) * lnDecimal;
-    lnM = lnM + ((lnM1 - lnM) / 4) * lnDecimal;
-    lnS = lnS + ((lnS1 - lnS) / 4) * lnDecimal;
-
-    lnLp = lnL + ((lnL1 - lnL) / 4) * (lnDecimal * 10);
-    lnMp = lnM + ((lnM1 - lnM) / 4) * (lnDecimal * 10);
-    lnSp = lnS + ((lnS1 - lnS) / 4) * (lnDecimal * 10);
-  } else {
-
-    lnL = dtZPT[idx + 1][2];
-    lnM = dtZPT[idx + 1][3];
-    lnS = dtZPT[idx + 1][4];
-
-    lnL1 = dtZPT[idx + 2][2];
-    lnM1 = dtZPT[idx + 2][3];
-    lnS1 = dtZPT[idx + 2][4];
-
-    lnLp = lnL + ((lnL1 - lnL) / 4) * ((lnDecimal - 0.5) * 10);
-    lnMp = lnM + ((lnM1 - lnM) / 4) * ((lnDecimal - 0.5) * 10);
-    lnSp = lnS + ((lnS1 - lnS) / 4) * ((lnDecimal - 0.5) * 10);
-  }
-
-  var lnZscore = (Math.pow((lnPeso / lnMp), lnLp) - 1) / (lnSp * lnLp);
-
-  if (lnZscore >= -3 && lnZscore <= 3) {
-    lnzpt = parseFloat(lnZscore).toFixed(2);
-  }
-
-  if (lnZscore > 3) {
-    lnSd3Pos = Math.pow((lnMp * (1 + (lnLp * lnSp * 3))), (1 / lnLp));
-    lnSd2Pos = Math.pow((lnMp * (1 + (lnLp * lnSp * 2))), (1 / lnLp));
-    lnSd23Pos = lnSd3Pos - lnSd2Pos;
-    lnZscore = 3 + (lnPeso - lnSd3Pos) / lnSd23Pos;
-    lnzpt = parseFloat(lnZscore).toFixed(2);
-  }
-
-  if (lnZscore < -3) {
-    lnSd2Neg = Math.pow((lnMp * (1 + (lnLp * lnSp * -2))), (1 / lnLp));
-    lnSd3Neg = Math.pow((lnMp * (1 + (lnLp * lnSp * -3))), (1 / lnLp));
-    lnSd23Neg = lnSd2Neg - lnSd3Neg;
-    lnZscore = -3 + (lnPeso - lnSd3Neg) / lnSd23Neg;
-    lnzpt = parseFloat(lnZscore).toFixed(2);
-  }
-
-  document.getElementById('zpt').value = lnzpt;
-    };
 
   function calc_ZPE() {
     var lnzpe = "";
@@ -336,42 +334,41 @@
       return;
     }
 
-    var dtZPE = {{ azpe }
+    var dtZPE = {{ azpe }};
+    var array = [];
+    for (var i in dtZPE) {
+      array.push(dtZPE[i][1]);
+    }
+
+    var idx = array.indexOf(pnMeses);
+    lnL = dtZPE[idx][2];
+    lnM = dtZPE[idx][3];
+    lnS = dtZPE[idx][4];
+
+    var lnZscore = (Math.pow((lnPeso / lnM), lnL) - 1) / (lnS * lnL);
+
+    if (lnZscore >= -3 && lnZscore <= 3) {
+      lnzpe = parseFloat(lnZscore).toFixed(2);
+    }
+
+    if (lnZscore > 3) {
+      lnSd3Pos = Math.pow((lnM * (1 + (lnL * lnS * 3))), (1 / lnL));
+      lnSd2Pos = Math.pow((lnM * (1 + (lnL * lnS * 2))), (1 / lnL));
+      lnSd23Pos = lnSd3Pos - lnSd2Pos;
+      lnZscore = 3 + (lnPeso - lnSd3Pos) / lnSd23Pos;
+      lnzpe = parseFloat(lnZscore).toFixed(2);
+    }
+
+    if (lnZscore < -3) {
+      lnSd2Neg = Math.pow((lnM * (1 + (lnL * lnS * -2))), (1 / lnL));
+      lnSd3Neg = Math.pow((lnM * (1 + (lnL * lnS * -3))), (1 / lnL));
+      lnSd23Neg = lnSd2Neg - lnSd3Neg;
+      lnZscore = -3 + (lnPeso - lnSd3Neg) / lnSd23Neg;
+      lnzpe = parseFloat(lnZscore).toFixed(2);
+    }
+
+    document.getElementById('zpe').value = lnzpe;
   };
-  var array = [];
-  for (var i in dtZPE) {
-    array.push(dtZPE[i][1]);
-  }
-
-  var idx = array.indexOf(pnMeses);
-  lnL = dtZPE[idx][2];
-  lnM = dtZPE[idx][3];
-  lnS = dtZPE[idx][4];
-
-  var lnZscore = (Math.pow((lnPeso / lnM), lnL) - 1) / (lnS * lnL);
-
-  if (lnZscore >= -3 && lnZscore <= 3) {
-    lnzpe = parseFloat(lnZscore).toFixed(2);
-  }
-
-  if (lnZscore > 3) {
-    lnSd3Pos = Math.pow((lnM * (1 + (lnL * lnS * 3))), (1 / lnL));
-    lnSd2Pos = Math.pow((lnM * (1 + (lnL * lnS * 2))), (1 / lnL));
-    lnSd23Pos = lnSd3Pos - lnSd2Pos;
-    lnZscore = 3 + (lnPeso - lnSd3Pos) / lnSd23Pos;
-    lnzpe = parseFloat(lnZscore).toFixed(2);
-  }
-
-  if (lnZscore < -3) {
-    lnSd2Neg = Math.pow((lnM * (1 + (lnL * lnS * -2))), (1 / lnL));
-    lnSd3Neg = Math.pow((lnM * (1 + (lnL * lnS * -3))), (1 / lnL));
-    lnSd23Neg = lnSd2Neg - lnSd3Neg;
-    lnZscore = -3 + (lnPeso - lnSd3Neg) / lnSd23Neg;
-    lnzpe = parseFloat(lnZscore).toFixed(2);
-  }
-
-  document.getElementById('zpe').value = lnzpe;
-    };
 
   function calc_ZTE() {
     var lnzte = "";
@@ -411,42 +408,41 @@
     }
 
     var pnMeses = lnEdad + lnUnMes;
-    var dtZTE = {{ azte }
+    var dtZTE = {{ azte }};
+    var array = [];
+    for (var i in dtZTE) {
+      array.push(dtZTE[i][1]);
+    }
+
+    var idx = array.indexOf(pnMeses);
+    lnL = dtZTE[idx][2];
+    lnM = dtZTE[idx][3];
+    lnS = dtZTE[idx][4];
+
+    var lnZscore = (Math.pow((lnTalla / lnM), lnL) - 1) / (lnS * lnL);
+
+    if (lnZscore >= -3 && lnZscore <= 3) {
+      lnzte = parseFloat(lnZscore).toFixed(2);
+    }
+
+    if (lnZscore > 3) {
+      lnSd3Pos = Math.pow((lnM * (1 + (lnL * lnS * 3))), (1 / lnL));
+      lnSd2Pos = Math.pow((lnM * (1 + (lnL * lnS * 2))), (1 / lnL));
+      lnSd23Pos = lnSd3Pos - lnSd2Pos;
+      lnZscore = 3 + (lnPeso - lnSd3Pos) / lnSd23Pos;
+      lnzte = parseFloat(lnZscore).toFixed(2);
+    }
+
+    if (lnZscore < -3) {
+      lnSd2Neg = Math.pow((lnM * (1 + (lnL * lnS * -2))), (1 / lnL));
+      lnSd3Neg = Math.pow((lnM * (1 + (lnL * lnS * -3))), (1 / lnL));
+      lnSd23Neg = lnSd2Neg - lnSd3Neg;
+      lnZscore = -3 + (lnPeso - lnSd3Neg) / lnSd23Neg;
+      lnzte = parseFloat(lnZscore).toFixed(2);
+    }
+
+    document.getElementById('zte').value = lnzte;
   };
-  var array = [];
-  for (var i in dtZTE) {
-    array.push(dtZTE[i][1]);
-  }
-
-  var idx = array.indexOf(pnMeses);
-  lnL = dtZTE[idx][2];
-  lnM = dtZTE[idx][3];
-  lnS = dtZTE[idx][4];
-
-  var lnZscore = (Math.pow((lnTalla / lnM), lnL) - 1) / (lnS * lnL);
-
-  if (lnZscore >= -3 && lnZscore <= 3) {
-    lnzte = parseFloat(lnZscore).toFixed(2);
-  }
-
-  if (lnZscore > 3) {
-    lnSd3Pos = Math.pow((lnM * (1 + (lnL * lnS * 3))), (1 / lnL));
-    lnSd2Pos = Math.pow((lnM * (1 + (lnL * lnS * 2))), (1 / lnL));
-    lnSd23Pos = lnSd3Pos - lnSd2Pos;
-    lnZscore = 3 + (lnPeso - lnSd3Pos) / lnSd23Pos;
-    lnzte = parseFloat(lnZscore).toFixed(2);
-  }
-
-  if (lnZscore < -3) {
-    lnSd2Neg = Math.pow((lnM * (1 + (lnL * lnS * -2))), (1 / lnL));
-    lnSd3Neg = Math.pow((lnM * (1 + (lnL * lnS * -3))), (1 / lnL));
-    lnSd23Neg = lnSd2Neg - lnSd3Neg;
-    lnZscore = -3 + (lnPeso - lnSd3Neg) / lnSd23Neg;
-    lnzte = parseFloat(lnZscore).toFixed(2);
-  }
-
-  document.getElementById('zte').value = lnzte;
-    };
 
   function calc_ZIMC() {
     var lnzimc = "";
@@ -492,42 +488,41 @@
     }
 
     var pnMeses = lnEdad + lnUnMes;
-    var dtZIMC = {{ azimc }
+    var dtZIMC = {{ azimc }};
+    var array = [];
+    for (var i in dtZIMC) {
+      array.push(dtZIMC[i][1]);
+    }
+
+    var idx = array.indexOf(pnMeses);
+    lnL = dtZIMC[idx][2];
+    lnM = dtZIMC[idx][3];
+    lnS = dtZIMC[idx][4];
+
+    var lnZscore = (Math.pow((lnIMC / lnM), lnL) - 1) / (lnS * lnL);
+
+    if (lnZscore >= -3 && lnZscore <= 3) {
+      lnzimc = parseFloat(lnZscore).toFixed(2);
+    }
+
+    if (lnZscore > 3) {
+      lnSd3Pos = Math.pow((lnM * (1 + (lnL * lnS * 3))), (1 / lnL));
+      lnSd2Pos = Math.pow((lnM * (1 + (lnL * lnS * 2))), (1 / lnL));
+      lnSd23Pos = lnSd3Pos - lnSd2Pos;
+      lnZscore = 3 + (lnPeso - lnSd3Pos) / lnSd23Pos;
+      lnzimc = parseFloat(lnZscore).toFixed(2);
+    }
+
+    if (lnZscore < -3) {
+      lnSd2Neg = Math.pow((lnM * (1 + (lnL * lnS * -2))), (1 / lnL));
+      lnSd3Neg = Math.pow((lnM * (1 + (lnL * lnS * -3))), (1 / lnL));
+      lnSd23Neg = lnSd2Neg - lnSd3Neg;
+      lnZscore = -3 + (lnPeso - lnSd3Neg) / lnSd23Neg;
+      lnzimc = parseFloat(lnZscore).toFixed(2);
+    }
+
+    document.getElementById('zimc').value = lnzimc;
   };
-  var array = [];
-  for (var i in dtZIMC) {
-    array.push(dtZIMC[i][1]);
-  }
-
-  var idx = array.indexOf(pnMeses);
-  lnL = dtZIMC[idx][2];
-  lnM = dtZIMC[idx][3];
-  lnS = dtZIMC[idx][4];
-
-  var lnZscore = (Math.pow((lnIMC / lnM), lnL) - 1) / (lnS * lnL);
-
-  if (lnZscore >= -3 && lnZscore <= 3) {
-    lnzimc = parseFloat(lnZscore).toFixed(2);
-  }
-
-  if (lnZscore > 3) {
-    lnSd3Pos = Math.pow((lnM * (1 + (lnL * lnS * 3))), (1 / lnL));
-    lnSd2Pos = Math.pow((lnM * (1 + (lnL * lnS * 2))), (1 / lnL));
-    lnSd23Pos = lnSd3Pos - lnSd2Pos;
-    lnZscore = 3 + (lnPeso - lnSd3Pos) / lnSd23Pos;
-    lnzimc = parseFloat(lnZscore).toFixed(2);
-  }
-
-  if (lnZscore < -3) {
-    lnSd2Neg = Math.pow((lnM * (1 + (lnL * lnS * -2))), (1 / lnL));
-    lnSd3Neg = Math.pow((lnM * (1 + (lnL * lnS * -3))), (1 / lnL));
-    lnSd23Neg = lnSd2Neg - lnSd3Neg;
-    lnZscore = -3 + (lnPeso - lnSd3Neg) / lnSd23Neg;
-    lnzimc = parseFloat(lnZscore).toFixed(2);
-  }
-
-  document.getElementById('zimc').value = lnzimc;
-    };
 
   if (window.addEventListener) {
     // for W3C DOM

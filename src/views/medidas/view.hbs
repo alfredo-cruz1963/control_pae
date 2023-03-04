@@ -119,31 +119,30 @@
   var texto4 = "";
 
   function init() {
-    const lcpeso = {{ tomas.peso }
+    const lcpeso = {{ tomas.peso }};
+    const lnpeso = parseFloat(lcpeso, 2);
+    peso = lnpeso;
+    const lctalla = {{ tomas.talla }};
+    const lntalla = parseFloat(lctalla, 2);
+    talla = lntalla;
+
+    const lcmeses = {{ tomas.meses }};
+    const lnmeses = parseInt(lcmeses);
+    mMeses = lnmeses;
+    lnEdad = mMeses;
+
+    const zpt = {{ lczpt }};
+    const zpe = {{ lczpe }};
+    const zte = {{ lczte }};
+    const zimc = {{ lczimc }};
+
+    const mes = mMeses % 12;
+    const annios = (mMeses - mes) / 12;
+    texto1 = "Edad: " + annios.toString() + "a " + mes.toString() + "m (" + lcmeses + "m)" + ", Puntaje z: " + zpt;
+    texto2 = "Edad: " + annios.toString() + "a " + mes.toString() + "m (" + lcmeses + "m)" + ", Puntaje z: " + zpe;
+    texto3 = "Edad: " + annios.toString() + "a " + mes.toString() + "m (" + lcmeses + "m)" + ", Puntaje z: " + zte;
+    texto4 = "Edad: " + annios.toString() + "a " + mes.toString() + "m (" + lcmeses + "m)" + ", Puntaje z: " + zimc;
   };
-  const lnpeso = parseFloat(lcpeso, 2);
-  peso = lnpeso;
-  const lctalla = {{ tomas.talla }};
-  const lntalla = parseFloat(lctalla, 2);
-  talla = lntalla;
-
-  const lcmeses = {{ tomas.meses }};
-  const lnmeses = parseInt(lcmeses);
-  mMeses = lnmeses;
-  lnEdad = mMeses;
-
-  const zpt = {{ lczpt }};
-  const zpe = {{ lczpe }};
-  const zte = {{ lczte }};
-  const zimc = {{ lczimc }};
-
-  const mes = mMeses % 12;
-  const annios = (mMeses - mes) / 12;
-  texto1 = "Edad: " + annios.toString() + "a " + mes.toString() + "m (" + lcmeses + "m)" + ", Puntaje z: " + zpt;
-  texto2 = "Edad: " + annios.toString() + "a " + mes.toString() + "m (" + lcmeses + "m)" + ", Puntaje z: " + zpe;
-  texto3 = "Edad: " + annios.toString() + "a " + mes.toString() + "m (" + lcmeses + "m)" + ", Puntaje z: " + zte;
-  texto4 = "Edad: " + annios.toString() + "a " + mes.toString() + "m (" + lcmeses + "m)" + ", Puntaje z: " + zimc;
-    };
 
   function myGraph() {
     var optGrafica = document.getElementById("graph").value;
@@ -165,7 +164,6 @@
         graficaZIMC();
         break;
     }
-
   };
 
   function limpiar() {
@@ -185,224 +183,222 @@
 
     //mMeses = 22;            //lnEdad;
     if (mMeses <= 24) {
-      var aZPT = {{ azpt }
-    };
-    var valorX = 71;
-    var valorY = 26;
-    var lnResta = 0;
-    var npeso = 0;
-    var ntalla = 50;
-  } else {
-    var aZPT = {{ azpt1 }
-  };
-  var valorX = 60;
-  var valorY = 28;
-  var lnResta = 4;
-  var npeso = 4;
-  var ntalla = 70;
-        }
+      var aZPT = {{ azpt }};
+      var valorX = 71;
+      var valorY = 26;
+      var lnResta = 0;
+      var npeso = 0;
+      var ntalla = 50;
+    } else {
+      var aZPT = {{ azpt1 }};
+      var valorX = 60;
+      var valorY = 28;
+      var lnResta = 4;
+      var npeso = 4;
+      var ntalla = 70;
+    }
 
-  var Regs = aZPT.length;
-  var scalaX = (Xmax - Xmin) / valorX;
-  var scalaY = (Ymax - Ymin) / valorY;
+    var Regs = aZPT.length;
+    var scalaX = (Xmax - Xmin) / valorX;
+    var scalaY = (Ymax - Ymin) / valorY;
 
-  contexto.beginPath();
-  contexto.clearRect(0, 0, canvas.width, canvas.height);
-  contexto.lineWidth = 1;
-  contexto.strokeStyle = 'rgba(0,0,0,0.5)';
+    contexto.beginPath();
+    contexto.clearRect(0, 0, canvas.width, canvas.height);
+    contexto.lineWidth = 1;
+    contexto.strokeStyle = 'rgba(0,0,0,0.5)';
 
-  contexto.moveTo(Xmin, Ymin);
-  contexto.lineTo(Xmin, Ymax);
-  contexto.moveTo(Xmin, Ymax);
-  contexto.lineTo(Xmax, Ymax);
-  contexto.moveTo(Xmax, Ymax);
-  contexto.lineTo(Xmax, Ymin);
-  contexto.moveTo(Xmax, Ymin);
-  contexto.lineTo(Xmin, Ymin);
-  contexto.stroke();
+    contexto.moveTo(Xmin, Ymin);
+    contexto.lineTo(Xmin, Ymax);
+    contexto.moveTo(Xmin, Ymax);
+    contexto.lineTo(Xmax, Ymax);
+    contexto.moveTo(Xmax, Ymax);
+    contexto.lineTo(Xmax, Ymin);
+    contexto.moveTo(Xmax, Ymin);
+    contexto.lineTo(Xmin, Ymin);
+    contexto.stroke();
 
-  contexto.strokeRect(Xmin + 10, Ymin + 10, 190, 20);
-  contexto.font = 'bold 9px "Arial"';
-  contexto.fillStyle = 'rgba(0,0,0)';
-  contexto.fillText(texto1, Xmin + 20, Ymin + 23);
-  contexto.fillText("Estándares de la OMS (Nacimiento a 60 meses), referencia de la OMS 2007 (61 meses a 19 años)", 155, 13);
-  contexto.fillText("Talla(cm)", 310, 420);
-  contexto.save();
-  contexto.translate(10, 220);
-  contexto.rotate(-Math.PI / 2);
-  contexto.textAlign = 'center';
-  contexto.fillText('Peso(Kg)', 0, 0);
-  contexto.restore();
-  contexto.closePath();
+    contexto.strokeRect(Xmin + 10, Ymin + 10, 190, 20);
+    contexto.font = 'bold 9px "Arial"';
+    contexto.fillStyle = 'rgba(0,0,0)';
+    contexto.fillText(texto1, Xmin + 20, Ymin + 23);
+    contexto.fillText("Estándares de la OMS (Nacimiento a 60 meses), referencia de la OMS 2007 (61 meses a 19 años)", 155, 13);
+    contexto.fillText("Talla(cm)", 310, 420);
+    contexto.save();
+    contexto.translate(10, 220);
+    contexto.rotate(-Math.PI / 2);
+    contexto.textAlign = 'center';
+    contexto.fillText('Peso(Kg)', 0, 0);
+    contexto.restore();
+    contexto.closePath();
 
-  contexto.beginPath();
-  contexto.strokeStyle = 'rgba(185,185,185,0.2)';
+    contexto.beginPath();
+    contexto.strokeStyle = 'rgba(185,185,185,0.2)';
 
-  var lnPeso = npeso;
-  var i;
-  for (i = 0; i <= valorY; i += 1) {
-    var y = Ymax - Math.round(i * scalaY);
-    contexto.moveTo(Xmin, y);  //(Y,X) traza las lineas horizontales
-    contexto.lineTo(Xmax, y);
-    if (i % 2 == 0) {
-      contexto.moveTo(Xmin, y);
+    var lnPeso = npeso;
+    var i;
+    for (i = 0; i <= valorY; i += 1) {
+      var y = Ymax - Math.round(i * scalaY);
+      contexto.moveTo(Xmin, y);  //(Y,X) traza las lineas horizontales
       contexto.lineTo(Xmax, y);
-      contexto.font = '9px "Arial"';
-      if (lnPeso > npeso) {
-        contexto.fillText(lnPeso, 15, y + 3);
+      if (i % 2 == 0) {
+        contexto.moveTo(Xmin, y);
+        contexto.lineTo(Xmax, y);
+        contexto.font = '9px "Arial"';
+        if (lnPeso > npeso) {
+          contexto.fillText(lnPeso, 15, y + 3);
+        }
+        lnPeso += 2;
       }
-      lnPeso += 2;
     }
-  }
 
-  var lnTalla = ntalla;
-  var i;
-  for (i = 0; i <= valorX; i += 1) {
-    var x = Xmin + Math.round(i * scalaX);
-    contexto.moveTo(x, Ymin);  //(Y,X) traza las lineas verticales
-    contexto.lineTo(x, Ymax);
-    if ((i + 5) % 10 == 0) {
-      contexto.moveTo(x, Ymin);
+    var lnTalla = ntalla;
+    var i;
+    for (i = 0; i <= valorX; i += 1) {
+      var x = Xmin + Math.round(i * scalaX);
+      contexto.moveTo(x, Ymin);  //(Y,X) traza las lineas verticales
       contexto.lineTo(x, Ymax);
-      contexto.font = '9px "Arial"';
-      contexto.fillText(lnTalla, x - 5, Ymax + 15);
-      lnTalla += 10;
+      if ((i + 5) % 10 == 0) {
+        contexto.moveTo(x, Ymin);
+        contexto.lineTo(x, Ymax);
+        contexto.font = '9px "Arial"';
+        contexto.fillText(lnTalla, x - 5, Ymax + 15);
+        lnTalla += 10;
+      }
     }
-  }
 
-  contexto.lineWidth = 1;
-  contexto.stroke();
-  contexto.closePath();
-
-  // traza las coordenadas de las medidas
-  contexto.fillStyle = 'rgba(255,255,255)';
-  contexto.fillRect(Xmin + 10, Ymin + 10, 190, 20);
-  contexto.font = 'bold 9px "Arial"';
-  contexto.fillStyle = 'rgba(0,0,0)';
-  contexto.fillText(texto1, Xmin + 20, Ymin + 23);
-  var lnAltura = aZPT[0][1];
-  var lnLong = lnAltura;
-
-  var datoX = talla;           //miTalla;
-  var datoY = peso;            //miPeso;
-  var PuntoX = Xmin + Math.round(scalaX * (datoX - lnLong));
-  var PuntoY = Ymax - Math.round(scalaY * (datoY - lnResta));
-  contexto.beginPath();
-  contexto.strokeStyle = 'rgba(0,0,255,0.5)';
-  contexto.moveTo(PuntoX, Ymin + 1);
-  contexto.lineTo(PuntoX, Ymax - 1);
-  contexto.moveTo(Xmin + 1, PuntoY);
-  contexto.lineTo(Xmax - 1, PuntoY);
-  contexto.lineWidth = 1;
-  contexto.stroke();
-  contexto.closePath();
-
-  contexto.lineWidth = 1;
-  var lnMeses = aZPT[0][1];
-  var lnZ3n = aZPT[0][5];
-  var lnZ2n = aZPT[0][6];
-  var lnZ1n = aZPT[0][7];
-  var lnZ0 = aZPT[0][8];
-  var lnZ1 = aZPT[0][9];
-  var lnZ2 = aZPT[0][10];
-  var lnZ3 = aZPT[0][11];
-
-  var x0 = Xmin + Math.round(scalaX * (lnAltura - lnLong));
-  var y03n = Ymax - Math.round(scalaY * (lnZ3n - lnResta));
-  var y03 = Ymax - Math.round(scalaY * (lnZ3 - lnResta));
-  var y02n = Ymax - Math.round(scalaY * (lnZ2n - lnResta));
-  var y02 = Ymax - Math.round(scalaY * (lnZ2 - lnResta));
-  var y01n = Ymax - Math.round(scalaY * (lnZ1n - lnResta));
-  var y01 = Ymax - Math.round(scalaY * (lnZ1 - lnResta));
-  var y0M = Ymax - Math.round(scalaY * (lnZ0 - lnResta));
-
-  for (i = 1; i <= Regs; i += 1) {
-    var lnAltura = aZPT[i][1];
-    var lnZ3n = aZPT[i][5];
-    var lnZ2n = aZPT[i][6];
-    var lnZ1n = aZPT[i][7];
-    var lnZ0 = aZPT[i][8];
-    var lnZ1 = aZPT[i][9];
-    var lnZ2 = aZPT[i][10];
-    var lnZ3 = aZPT[i][11];
-    var x1 = Xmin + Math.round(scalaX * (lnAltura - lnLong));
-
-    // SD3 y -SD3
-    contexto.beginPath();
-    contexto.strokeStyle = 'rgba(255,0,0)';  // linea roja
-    var y3n = Ymax - Math.round(scalaY * (lnZ3n - lnResta));
-    contexto.moveTo(x0, y03n);
-    contexto.lineTo(x1, y3n);
-    var y03n = y3n;
-    contexto.stroke();
-
-    var y3 = Ymax - Math.round(scalaY * (lnZ3 - lnResta));
-    contexto.moveTo(x0, y03);
-    contexto.lineTo(x1, y3);
-    var y03 = y3;
+    contexto.lineWidth = 1;
     contexto.stroke();
     contexto.closePath();
 
-    // SD2 Y -SD2
-    contexto.beginPath();
-    //contexto.setLineDash([5, 5]); traza lineas punteadas o discontinuas
-    contexto.strokeStyle = 'rgba(255,0,0,0.4)'; // linea roja mas clara
-    var y2n = Ymax - Math.round(scalaY * (lnZ2n - lnResta));
-    contexto.moveTo(x0, y02n);
-    contexto.lineTo(x1, y2n);
-    var y02n = y2n;
-    contexto.stroke();
+    // traza las coordenadas de las medidas
+    contexto.fillStyle = 'rgba(255,255,255)';
+    contexto.fillRect(Xmin + 10, Ymin + 10, 190, 20);
+    contexto.font = 'bold 9px "Arial"';
+    contexto.fillStyle = 'rgba(0,0,0)';
+    contexto.fillText(texto1, Xmin + 20, Ymin + 23);
+    var lnAltura = aZPT[0][1];
+    var lnLong = lnAltura;
 
-    var y2 = Ymax - Math.round(scalaY * (lnZ2 - lnResta));
-    contexto.moveTo(x0, y02);
-    contexto.lineTo(x1, y2);
-    var y02 = y2;
+    var datoX = talla;           //miTalla;
+    var datoY = peso;            //miPeso;
+    var PuntoX = Xmin + Math.round(scalaX * (datoX - lnLong));
+    var PuntoY = Ymax - Math.round(scalaY * (datoY - lnResta));
+    contexto.beginPath();
+    contexto.strokeStyle = 'rgba(0,0,255,0.5)';
+    contexto.moveTo(PuntoX, Ymin + 1);
+    contexto.lineTo(PuntoX, Ymax - 1);
+    contexto.moveTo(Xmin + 1, PuntoY);
+    contexto.lineTo(Xmax - 1, PuntoY);
+    contexto.lineWidth = 1;
     contexto.stroke();
     contexto.closePath();
 
-    // SD1 Y -SD1
-    contexto.beginPath();
-    contexto.strokeStyle = 'rgba(210,169,53)';      // linea amarilla
-    var y1n = Ymax - Math.round(scalaY * (lnZ1n - lnResta));
-    contexto.moveTo(x0, y01n);
-    contexto.lineTo(x1, y1n);
-    var y01n = y1n;
-    contexto.stroke();
+    contexto.lineWidth = 1;
+    var lnMeses = aZPT[0][1];
+    var lnZ3n = aZPT[0][5];
+    var lnZ2n = aZPT[0][6];
+    var lnZ1n = aZPT[0][7];
+    var lnZ0 = aZPT[0][8];
+    var lnZ1 = aZPT[0][9];
+    var lnZ2 = aZPT[0][10];
+    var lnZ3 = aZPT[0][11];
 
-    var y1 = Ymax - Math.round(scalaY * (lnZ1 - lnResta));
-    contexto.moveTo(x0, y01);
-    contexto.lineTo(x1, y1);
-    var y01 = y1;
-    contexto.stroke();
-    contexto.closePath();
+    var x0 = Xmin + Math.round(scalaX * (lnAltura - lnLong));
+    var y03n = Ymax - Math.round(scalaY * (lnZ3n - lnResta));
+    var y03 = Ymax - Math.round(scalaY * (lnZ3 - lnResta));
+    var y02n = Ymax - Math.round(scalaY * (lnZ2n - lnResta));
+    var y02 = Ymax - Math.round(scalaY * (lnZ2 - lnResta));
+    var y01n = Ymax - Math.round(scalaY * (lnZ1n - lnResta));
+    var y01 = Ymax - Math.round(scalaY * (lnZ1 - lnResta));
+    var y0M = Ymax - Math.round(scalaY * (lnZ0 - lnResta));
 
-    // MEDIA
-    contexto.beginPath();
-    contexto.strokeStyle = 'rgba(0,128,0)';     // linea verde
-    var yM = Ymax - Math.round(scalaY * (lnZ0 - lnResta));
-    contexto.moveTo(x0, y0M);
-    contexto.lineTo(x1, yM);
-    var y0M = yM;
-    contexto.stroke();
-    contexto.closePath();
+    for (i = 1; i <= Regs; i += 1) {
+      var lnAltura = aZPT[i][1];
+      var lnZ3n = aZPT[i][5];
+      var lnZ2n = aZPT[i][6];
+      var lnZ1n = aZPT[i][7];
+      var lnZ0 = aZPT[i][8];
+      var lnZ1 = aZPT[i][9];
+      var lnZ2 = aZPT[i][10];
+      var lnZ3 = aZPT[i][11];
+      var x1 = Xmin + Math.round(scalaX * (lnAltura - lnLong));
 
-    var x0 = x1;
-    if (i == Regs - 1) {
-      contexto.font = 'bold 9px "Arial"';
-      contexto.fillStyle = 'rgba(255,0,0,0.9)';
-      contexto.fillText("+3SD", Xmax - 30, y3 + 2);
-      contexto.fillText("-3SD", Xmax - 30, y3n + 2);
-      contexto.fillStyle = 'rgba(255,0,0,0.3)';
-      contexto.fillText("+2SD", Xmax - 30, y2 + 2);
-      contexto.fillText("-2SD", Xmax - 30, y2n + 2);
-      contexto.fillStyle = 'rgba(210,169,53,0.9)';
-      contexto.fillText("+1SD", Xmax - 30, y1 + 2);
-      contexto.fillText("-1SD", Xmax - 30, y1n + 2);
-      contexto.fillStyle = 'rgba(0,128,0,0.9)';
-      contexto.fillText("Media", Xmax - 30, yM + 2);
+      // SD3 y -SD3
+      contexto.beginPath();
+      contexto.strokeStyle = 'rgba(255,0,0)';  // linea roja
+      var y3n = Ymax - Math.round(scalaY * (lnZ3n - lnResta));
+      contexto.moveTo(x0, y03n);
+      contexto.lineTo(x1, y3n);
+      var y03n = y3n;
+      contexto.stroke();
+
+      var y3 = Ymax - Math.round(scalaY * (lnZ3 - lnResta));
+      contexto.moveTo(x0, y03);
+      contexto.lineTo(x1, y3);
+      var y03 = y3;
+      contexto.stroke();
+      contexto.closePath();
+
+      // SD2 Y -SD2
+      contexto.beginPath();
+      //contexto.setLineDash([5, 5]); traza lineas punteadas o discontinuas
+      contexto.strokeStyle = 'rgba(255,0,0,0.4)'; // linea roja mas clara
+      var y2n = Ymax - Math.round(scalaY * (lnZ2n - lnResta));
+      contexto.moveTo(x0, y02n);
+      contexto.lineTo(x1, y2n);
+      var y02n = y2n;
+      contexto.stroke();
+
+      var y2 = Ymax - Math.round(scalaY * (lnZ2 - lnResta));
+      contexto.moveTo(x0, y02);
+      contexto.lineTo(x1, y2);
+      var y02 = y2;
+      contexto.stroke();
+      contexto.closePath();
+
+      // SD1 Y -SD1
+      contexto.beginPath();
+      contexto.strokeStyle = 'rgba(210,169,53)';      // linea amarilla
+      var y1n = Ymax - Math.round(scalaY * (lnZ1n - lnResta));
+      contexto.moveTo(x0, y01n);
+      contexto.lineTo(x1, y1n);
+      var y01n = y1n;
+      contexto.stroke();
+
+      var y1 = Ymax - Math.round(scalaY * (lnZ1 - lnResta));
+      contexto.moveTo(x0, y01);
+      contexto.lineTo(x1, y1);
+      var y01 = y1;
+      contexto.stroke();
+      contexto.closePath();
+
+      // MEDIA
+      contexto.beginPath();
+      contexto.strokeStyle = 'rgba(0,128,0)';     // linea verde
+      var yM = Ymax - Math.round(scalaY * (lnZ0 - lnResta));
+      contexto.moveTo(x0, y0M);
+      contexto.lineTo(x1, yM);
+      var y0M = yM;
+      contexto.stroke();
+      contexto.closePath();
+
+      var x0 = x1;
+      if (i == Regs - 1) {
+        contexto.font = 'bold 9px "Arial"';
+        contexto.fillStyle = 'rgba(255,0,0,0.9)';
+        contexto.fillText("+3SD", Xmax - 30, y3 + 2);
+        contexto.fillText("-3SD", Xmax - 30, y3n + 2);
+        contexto.fillStyle = 'rgba(255,0,0,0.3)';
+        contexto.fillText("+2SD", Xmax - 30, y2 + 2);
+        contexto.fillText("-2SD", Xmax - 30, y2n + 2);
+        contexto.fillStyle = 'rgba(210,169,53,0.9)';
+        contexto.fillText("+1SD", Xmax - 30, y1 + 2);
+        contexto.fillText("-1SD", Xmax - 30, y1n + 2);
+        contexto.fillStyle = 'rgba(0,128,0,0.9)';
+        contexto.fillText("Media", Xmax - 30, yM + 2);
+      }
     }
-  }
-    };
+  };
 
   // **************** Talla / Edad *****************
   function graficaZTE() {         //Talla / Edad
@@ -414,226 +410,225 @@
     mMeses = lnEdad;
     var canvas = document.getElementById('graficas');
     var contexto = canvas.getContext('2d');
-    var aZTE = {{ azte }
-  };
-  var Regs = aZTE.length;
-  var valorX = 0;
-  var valorY = 0;
-  var tallaini = 0;
+    var aZTE = {{ azte }};
+    var Regs = aZTE.length;
+    var valorX = 0;
+    var valorY = 0;
+    var tallaini = 0;
 
-  if (mMeses <= 24) {
-    valorX = 26;
-    valorY = 60;
-    mesini = 0;
-    tallaini = 40;
-    var mesmax = 24;
-    var interX = 2;
-    var interY = 5;
-    var lnLong = tallaini;
-  }
+    if (mMeses <= 24) {
+      valorX = 26;
+      valorY = 60;
+      mesini = 0;
+      tallaini = 40;
+      var mesmax = 24;
+      var interX = 2;
+      var interY = 5;
+      var lnLong = tallaini;
+    }
 
-  if (mMeses > 24 && mMeses <= 60) {
-    var valorX = 38;
-    var valorY = 55;
-    tallaini = 70;
-    mesini = 24;
-    var mesmax = 60;
-    var interX = 2;
-    var interY = 5;
-    var lnLong = tallaini;
-  }
+    if (mMeses > 24 && mMeses <= 60) {
+      var valorX = 38;
+      var valorY = 55;
+      tallaini = 70;
+      mesini = 24;
+      var mesmax = 60;
+      var interX = 2;
+      var interY = 5;
+      var lnLong = tallaini;
+    }
 
-  if (mMeses > 60) {
-    valorX = 180;
-    valorY = 110;
-    tallaini = 90;
-    mesini = 60;
-    var mesmax = 228;
-    var interX = 12;
-    var interY = 10;
-    var lnLong = tallaini;
-  }
+    if (mMeses > 60) {
+      valorX = 180;
+      valorY = 110;
+      tallaini = 90;
+      mesini = 60;
+      var mesmax = 228;
+      var interX = 12;
+      var interY = 10;
+      var lnLong = tallaini;
+    }
 
-  var scalaX = (Xmax - Xmin) / valorX;
-  var scalaY = (Ymax - Ymin) / valorY;
+    var scalaX = (Xmax - Xmin) / valorX;
+    var scalaY = (Ymax - Ymin) / valorY;
 
-  contexto.beginPath();
-  contexto.clearRect(0, 0, canvas.width, canvas.height);
-  contexto.lineWidth = 1;
-  contexto.strokeStyle = 'rgba(0,0,0,0.5)';
-  contexto.moveTo(Xmin, Ymin);
-  contexto.lineTo(Xmin, Ymax);
-  contexto.moveTo(Xmin, Ymax);
-  contexto.lineTo(Xmax, Ymax);
-  contexto.moveTo(Xmax, Ymax);
-  contexto.lineTo(Xmax, Ymin);
-  contexto.moveTo(Xmax, Ymin);
-  contexto.lineTo(Xmin, Ymin);
-  contexto.stroke();
-  contexto.strokeRect(Xmin + 10, Ymin + 10, 190, 20);
-  contexto.font = 'bold 9px "Arial"';
-  contexto.fillStyle = 'rgba(0,0,0,0.9)';
-  contexto.fillText(texto3, Xmin + 20, Ymin + 23);
-  contexto.fillText("Estándares de la OMS (Nacimiento a 60 meses), referencia de la OMS 2007 (61 meses a 19 años)", 155, 13);
-  contexto.fillText("Edad(meses)", 310, 420);
-  contexto.save();
-  contexto.translate(10, 200);
-  contexto.rotate(-Math.PI / 2);
-  contexto.textAlign = 'center';
-  contexto.fillText('Longitud/Talla(cm)', 0, 0);
-  contexto.restore();
-  contexto.closePath();
-  contexto.beginPath();
-  contexto.strokeStyle = 'rgba(185,185,185,0.2)';
+    contexto.beginPath();
+    contexto.clearRect(0, 0, canvas.width, canvas.height);
+    contexto.lineWidth = 1;
+    contexto.strokeStyle = 'rgba(0,0,0,0.5)';
+    contexto.moveTo(Xmin, Ymin);
+    contexto.lineTo(Xmin, Ymax);
+    contexto.moveTo(Xmin, Ymax);
+    contexto.lineTo(Xmax, Ymax);
+    contexto.moveTo(Xmax, Ymax);
+    contexto.lineTo(Xmax, Ymin);
+    contexto.moveTo(Xmax, Ymin);
+    contexto.lineTo(Xmin, Ymin);
+    contexto.stroke();
+    contexto.strokeRect(Xmin + 10, Ymin + 10, 190, 20);
+    contexto.font = 'bold 9px "Arial"';
+    contexto.fillStyle = 'rgba(0,0,0,0.9)';
+    contexto.fillText(texto3, Xmin + 20, Ymin + 23);
+    contexto.fillText("Estándares de la OMS (Nacimiento a 60 meses), referencia de la OMS 2007 (61 meses a 19 años)", 155, 13);
+    contexto.fillText("Edad(meses)", 310, 420);
+    contexto.save();
+    contexto.translate(10, 200);
+    contexto.rotate(-Math.PI / 2);
+    contexto.textAlign = 'center';
+    contexto.fillText('Longitud/Talla(cm)', 0, 0);
+    contexto.restore();
+    contexto.closePath();
+    contexto.beginPath();
+    contexto.strokeStyle = 'rgba(185,185,185,0.2)';
 
-  var lnTalla = tallaini;
-  var i;
-  for (i = 0; i <= valorY; i += 1) {
-    var y = Ymax - Math.round(i * scalaY);
-    contexto.moveTo(Xmin, y);  //(Y,X) traza las lineas horizontales
-    contexto.lineTo(Xmax, y);
-    if (i % interY == 0) {
-      contexto.moveTo(Xmin, y);
+    var lnTalla = tallaini;
+    var i;
+    for (i = 0; i <= valorY; i += 1) {
+      var y = Ymax - Math.round(i * scalaY);
+      contexto.moveTo(Xmin, y);  //(Y,X) traza las lineas horizontales
       contexto.lineTo(Xmax, y);
-      contexto.font = '9px "Arial"';
-      if (lnTalla > tallaini) {
-        contexto.fillText(lnTalla, 17, y + 3);
+      if (i % interY == 0) {
+        contexto.moveTo(Xmin, y);
+        contexto.lineTo(Xmax, y);
+        contexto.font = '9px "Arial"';
+        if (lnTalla > tallaini) {
+          contexto.fillText(lnTalla, 17, y + 3);
+        }
+        lnTalla += interY;
       }
-      lnTalla += interY;
     }
-  }
 
-  var lnMeses = mesini;
-  var i;
-  for (i = 0; i <= valorX; i += 1) {
-    var x = Xmin + Math.round(i * scalaX);
-    contexto.moveTo(x, Ymin);  //(Y,X) traza las lineas verticales
-    contexto.lineTo(x, Ymax);
-    if (i % interX == 0) {
-      contexto.moveTo(x, Ymin);
+    var lnMeses = mesini;
+    var i;
+    for (i = 0; i <= valorX; i += 1) {
+      var x = Xmin + Math.round(i * scalaX);
+      contexto.moveTo(x, Ymin);  //(Y,X) traza las lineas verticales
       contexto.lineTo(x, Ymax);
-      contexto.font = '9px "Arial"';
-      if (lnMeses <= mesmax) {
-        contexto.fillText(lnMeses, x - 5, Ymax + 15);
+      if (i % interX == 0) {
+        contexto.moveTo(x, Ymin);
+        contexto.lineTo(x, Ymax);
+        contexto.font = '9px "Arial"';
+        if (lnMeses <= mesmax) {
+          contexto.fillText(lnMeses, x - 5, Ymax + 15);
+        }
+        lnMeses += interX;
       }
-      lnMeses += interX;
     }
-  }
-  contexto.lineWidth = 1;
-  contexto.stroke();
-  contexto.closePath();
-
-  // traza las coordenadas de las medidas
-  contexto.fillStyle = 'rgba(255,255,255,0.5)';
-  contexto.fillRect(Xmin + 10, Ymin + 10, 190, 20);
-  contexto.font = 'bold 9px "Arial"';
-  contexto.fillStyle = 'rgba(0,0,0,0.9)';
-  contexto.fillText(texto3, Xmin + 20, Ymin + 23);
-
-  var datoX = mMeses;        //mMeses;
-  var datoY = talla;        //miTalla;
-  var PuntoX = Xmin + Math.round(scalaX * (datoX - mesini));
-  var PuntoY = Ymax - Math.round(scalaY * (datoY - lnLong));
-  contexto.beginPath();
-  contexto.strokeStyle = 'rgba(0,0,255,0.5)';
-  contexto.moveTo(PuntoX, Ymin + 1);
-  contexto.lineTo(PuntoX, Ymax - 1);
-  contexto.moveTo(Xmin + 1, PuntoY);
-  contexto.lineTo(Xmax - 1, PuntoY);
-  contexto.lineWidth = 1;
-  contexto.stroke();
-  contexto.closePath();
-
-  contexto.lineWidth = 1;
-  var lnMeses = aZTE[0][1] - mesini;
-  //var lnZ3n = aZTE[0][5];
-  var lnZ2n = aZTE[0][6];
-  var lnZ1n = aZTE[0][7];
-  var lnZ0 = aZTE[0][8];
-  var lnZ1 = aZTE[0][9];
-  var lnZ2 = aZTE[0][10];
-  //var lnZ3 = aZTE[0][11];
-
-  var x0 = Xmin + Math.round(scalaX * lnMeses);
-  //var y03n = Ymax - Math.round(scalaY * (lnZ3n - lnLong));
-  //var y03 = Ymax - Math.round(scalaY * (lnZ3 - lnLong));
-  var y02n = Ymax - Math.round(scalaY * (lnZ2n - lnLong));
-  var y02 = Ymax - Math.round(scalaY * (lnZ2 - lnLong));
-  var y01n = Ymax - Math.round(scalaY * (lnZ1n - lnLong));
-  var y01 = Ymax - Math.round(scalaY * (lnZ1 - lnLong));
-  var y0M = Ymax - Math.round(scalaY * (lnZ0 - lnLong));
-
-  for (i = 0; i < Regs; i++) {
-    var lnMeses = aZTE[i][1] - mesini;
-    //var lnZ3n = aZTE[i][5];
-    var lnZ2n = aZTE[i][6];
-    var lnZ1n = aZTE[i][7];
-    var lnZ0 = aZTE[i][8];
-    var lnZ1 = aZTE[i][9];
-    var lnZ2 = aZTE[i][10];
-    //var lnZ3 = aZTE[i][11];
-    var x1 = Xmin + Math.round(scalaX * lnMeses);
-
-    // LINEAS NEGRAS SD2 y SD1
-    contexto.beginPath();
-    contexto.strokeStyle = 'rgba(0,0,0)'; // linea negra +2D
-    var y2 = Ymax - Math.round(scalaY * (lnZ2 - lnLong));
-    contexto.moveTo(x0, y02);
-    contexto.lineTo(x1, y2);
-    var y02 = y2;
+    contexto.lineWidth = 1;
     contexto.stroke();
     contexto.closePath();
 
-    var y1 = Ymax - Math.round(scalaY * (lnZ1 - lnLong));
-    contexto.moveTo(x0, y01);
-    contexto.lineTo(x1, y1);
-    var y01 = y1;
+    // traza las coordenadas de las medidas
+    contexto.fillStyle = 'rgba(255,255,255,0.5)';
+    contexto.fillRect(Xmin + 10, Ymin + 10, 190, 20);
+    contexto.font = 'bold 9px "Arial"';
+    contexto.fillStyle = 'rgba(0,0,0,0.9)';
+    contexto.fillText(texto3, Xmin + 20, Ymin + 23);
+
+    var datoX = mMeses;        //mMeses;
+    var datoY = talla;        //miTalla;
+    var PuntoX = Xmin + Math.round(scalaX * (datoX - mesini));
+    var PuntoY = Ymax - Math.round(scalaY * (datoY - lnLong));
+    contexto.beginPath();
+    contexto.strokeStyle = 'rgba(0,0,255,0.5)';
+    contexto.moveTo(PuntoX, Ymin + 1);
+    contexto.lineTo(PuntoX, Ymax - 1);
+    contexto.moveTo(Xmin + 1, PuntoY);
+    contexto.lineTo(Xmax - 1, PuntoY);
+    contexto.lineWidth = 1;
     contexto.stroke();
     contexto.closePath();
 
-    // MEDIA
-    contexto.beginPath();
-    contexto.strokeStyle = 'rgba(0,128,0)';     // linea verde
-    var yM = Ymax - Math.round(scalaY * (lnZ0 - lnLong));
-    contexto.moveTo(x0, y0M);
-    contexto.lineTo(x1, yM);
-    var y0M = yM;
-    contexto.stroke();
-    contexto.closePath();
+    contexto.lineWidth = 1;
+    var lnMeses = aZTE[0][1] - mesini;
+    //var lnZ3n = aZTE[0][5];
+    var lnZ2n = aZTE[0][6];
+    var lnZ1n = aZTE[0][7];
+    var lnZ0 = aZTE[0][8];
+    var lnZ1 = aZTE[0][9];
+    var lnZ2 = aZTE[0][10];
+    //var lnZ3 = aZTE[0][11];
 
-    // LINEA AMARILLA -SD1
-    contexto.beginPath();
-    contexto.strokeStyle = 'rgba(210,169,53)';      // linea amarilla -1D
-    var y1n = Ymax - Math.round(scalaY * (lnZ1n - lnLong));
-    contexto.moveTo(x0, y01n);
-    contexto.lineTo(x1, y1n);
-    var y01n = y1n;
-    contexto.stroke();
+    var x0 = Xmin + Math.round(scalaX * lnMeses);
+    //var y03n = Ymax - Math.round(scalaY * (lnZ3n - lnLong));
+    //var y03 = Ymax - Math.round(scalaY * (lnZ3 - lnLong));
+    var y02n = Ymax - Math.round(scalaY * (lnZ2n - lnLong));
+    var y02 = Ymax - Math.round(scalaY * (lnZ2 - lnLong));
+    var y01n = Ymax - Math.round(scalaY * (lnZ1n - lnLong));
+    var y01 = Ymax - Math.round(scalaY * (lnZ1 - lnLong));
+    var y0M = Ymax - Math.round(scalaY * (lnZ0 - lnLong));
 
-    // LINEA ROJA -SD1
-    contexto.beginPath();
-    contexto.strokeStyle = 'rgba(255,0,0)'; // linea roja -2D
-    var y2n = Ymax - Math.round(scalaY * (lnZ2n - lnLong));
-    contexto.moveTo(x0, y02n);
-    contexto.lineTo(x1, y2n);
-    var y02n = y2n;
-    contexto.stroke();
+    for (i = 0; i < Regs; i++) {
+      var lnMeses = aZTE[i][1] - mesini;
+      //var lnZ3n = aZTE[i][5];
+      var lnZ2n = aZTE[i][6];
+      var lnZ1n = aZTE[i][7];
+      var lnZ0 = aZTE[i][8];
+      var lnZ1 = aZTE[i][9];
+      var lnZ2 = aZTE[i][10];
+      //var lnZ3 = aZTE[i][11];
+      var x1 = Xmin + Math.round(scalaX * lnMeses);
 
-    var x0 = x1;
-    if (i == Regs - 1) {
-      contexto.font = 'bold 9px "Arial"';
-      contexto.fillStyle = 'rgba(0,0,0)';
-      contexto.fillText("+2SD", Xmax - 30, y2 + 2);
-      contexto.fillText("+1SD", Xmax - 30, y1 + 2);
-      contexto.fillStyle = 'rgba(0,128,0)';
-      contexto.fillText("Media", Xmax - 30, yM + 2);
-      contexto.fillStyle = 'rgba(210,169,53)';
-      contexto.fillText("-1SD", Xmax - 30, y1n + 2);
-      contexto.fillStyle = 'rgba(255,0,0)';
-      contexto.fillText("-2SD", Xmax - 30, y2n + 2);
+      // LINEAS NEGRAS SD2 y SD1
+      contexto.beginPath();
+      contexto.strokeStyle = 'rgba(0,0,0)'; // linea negra +2D
+      var y2 = Ymax - Math.round(scalaY * (lnZ2 - lnLong));
+      contexto.moveTo(x0, y02);
+      contexto.lineTo(x1, y2);
+      var y02 = y2;
+      contexto.stroke();
+      contexto.closePath();
+
+      var y1 = Ymax - Math.round(scalaY * (lnZ1 - lnLong));
+      contexto.moveTo(x0, y01);
+      contexto.lineTo(x1, y1);
+      var y01 = y1;
+      contexto.stroke();
+      contexto.closePath();
+
+      // MEDIA
+      contexto.beginPath();
+      contexto.strokeStyle = 'rgba(0,128,0)';     // linea verde
+      var yM = Ymax - Math.round(scalaY * (lnZ0 - lnLong));
+      contexto.moveTo(x0, y0M);
+      contexto.lineTo(x1, yM);
+      var y0M = yM;
+      contexto.stroke();
+      contexto.closePath();
+
+      // LINEA AMARILLA -SD1
+      contexto.beginPath();
+      contexto.strokeStyle = 'rgba(210,169,53)';      // linea amarilla -1D
+      var y1n = Ymax - Math.round(scalaY * (lnZ1n - lnLong));
+      contexto.moveTo(x0, y01n);
+      contexto.lineTo(x1, y1n);
+      var y01n = y1n;
+      contexto.stroke();
+
+      // LINEA ROJA -SD1
+      contexto.beginPath();
+      contexto.strokeStyle = 'rgba(255,0,0)'; // linea roja -2D
+      var y2n = Ymax - Math.round(scalaY * (lnZ2n - lnLong));
+      contexto.moveTo(x0, y02n);
+      contexto.lineTo(x1, y2n);
+      var y02n = y2n;
+      contexto.stroke();
+
+      var x0 = x1;
+      if (i == Regs - 1) {
+        contexto.font = 'bold 9px "Arial"';
+        contexto.fillStyle = 'rgba(0,0,0)';
+        contexto.fillText("+2SD", Xmax - 30, y2 + 2);
+        contexto.fillText("+1SD", Xmax - 30, y1 + 2);
+        contexto.fillStyle = 'rgba(0,128,0)';
+        contexto.fillText("Media", Xmax - 30, yM + 2);
+        contexto.fillStyle = 'rgba(210,169,53)';
+        contexto.fillText("-1SD", Xmax - 30, y1n + 2);
+        contexto.fillStyle = 'rgba(255,0,0)';
+        contexto.fillText("-2SD", Xmax - 30, y2n + 2);
+      }
     }
-  }
-    };
+  };
 
   // ***************** IMC / E ***************************
   function graficaZIMC() {             //IMC / Edad
@@ -645,302 +640,301 @@
     mMeses = lnEdad;
     var canvas = document.getElementById('graficas');
     var contexto = canvas.getContext('2d');
-    var aZIMC = {{ azimc }
-  };
-  var Regs = aZIMC.length;
-  var valorX = 0;
-  var valorY = 0;
-  var tallaini = 0;
+    var aZIMC = {{ azimc }};
+    var Regs = aZIMC.length;
+    var valorX = 0;
+    var valorY = 0;
+    var tallaini = 0;
 
-  if (mMeses <= 24) {
-    valorX = 26;
-    valorY = 16;
-    mesini = 0;
-    tallaini = 8;
-    var mesmax = 24;
-    var interX = 2;
-    var interY = 1;
-    var lnLong = tallaini;
-  }
+    if (mMeses <= 24) {
+      valorX = 26;
+      valorY = 16;
+      mesini = 0;
+      tallaini = 8;
+      var mesmax = 24;
+      var interX = 2;
+      var interY = 1;
+      var lnLong = tallaini;
+    }
 
-  if (mMeses > 24 && mMeses <= 60) {
-    var valorX = 38;
-    var valorY = 11;
-    tallaini = 11;
-    mesini = 24;
-    var mesmax = 60;
-    var interX = 2;
-    var interY = 1;
-    var lnLong = tallaini;
-  }
+    if (mMeses > 24 && mMeses <= 60) {
+      var valorX = 38;
+      var valorY = 11;
+      tallaini = 11;
+      mesini = 24;
+      var mesmax = 60;
+      var interX = 2;
+      var interY = 1;
+      var lnLong = tallaini;
+    }
 
-  if (mMeses > 60) {
-    valorX = 180;
-    valorY = 24;
-    tallaini = 10;
-    mesini = 60;
-    var mesmax = 228;
-    var interX = 12;
-    var interY = 2;
-    var lnLong = tallaini;
-  }
+    if (mMeses > 60) {
+      valorX = 180;
+      valorY = 24;
+      tallaini = 10;
+      mesini = 60;
+      var mesmax = 228;
+      var interX = 12;
+      var interY = 2;
+      var lnLong = tallaini;
+    }
 
-  var scalaX = (Xmax - Xmin) / valorX;
-  var scalaY = (Ymax - Ymin) / valorY;
+    var scalaX = (Xmax - Xmin) / valorX;
+    var scalaY = (Ymax - Ymin) / valorY;
 
-  contexto.beginPath();
-  contexto.clearRect(0, 0, canvas.width, canvas.height);
-  contexto.lineWidth = 1;
-  contexto.strokeStyle = 'rgba(0,0,0,0.5)';
-  contexto.moveTo(Xmin, Ymin);
-  contexto.lineTo(Xmin, Ymax);
-  contexto.moveTo(Xmin, Ymax);
-  contexto.lineTo(Xmax, Ymax);
-  contexto.moveTo(Xmax, Ymax);
-  contexto.lineTo(Xmax, Ymin);
-  contexto.moveTo(Xmax, Ymin);
-  contexto.lineTo(Xmin, Ymin);
-  contexto.stroke();
-  contexto.strokeRect(Xmin + 10, Ymin + 10, 190, 20);
-  contexto.font = 'bold 9px "Arial"';
-  contexto.fillStyle = 'rgba(0,0,0,0.9)';
-  contexto.fillText(texto4, Xmin + 20, Ymin + 23);
-  contexto.fillText("Estándares de la OMS (Nacimiento a 60 meses), referencia de la OMS 2007 (61 meses a 19 años)", 155, 13);
-  contexto.fillText("Edad(meses)", 310, 420);
-  contexto.save();
-  contexto.translate(10, 200);
-  contexto.rotate(-Math.PI / 2);
-  contexto.textAlign = 'center';
-  contexto.fillText('Indice de masa corporal', 0, 0);
-  contexto.restore();
-  contexto.closePath();
-  contexto.beginPath();
-  contexto.strokeStyle = 'rgba(185,185,185,0.2)';
+    contexto.beginPath();
+    contexto.clearRect(0, 0, canvas.width, canvas.height);
+    contexto.lineWidth = 1;
+    contexto.strokeStyle = 'rgba(0,0,0,0.5)';
+    contexto.moveTo(Xmin, Ymin);
+    contexto.lineTo(Xmin, Ymax);
+    contexto.moveTo(Xmin, Ymax);
+    contexto.lineTo(Xmax, Ymax);
+    contexto.moveTo(Xmax, Ymax);
+    contexto.lineTo(Xmax, Ymin);
+    contexto.moveTo(Xmax, Ymin);
+    contexto.lineTo(Xmin, Ymin);
+    contexto.stroke();
+    contexto.strokeRect(Xmin + 10, Ymin + 10, 190, 20);
+    contexto.font = 'bold 9px "Arial"';
+    contexto.fillStyle = 'rgba(0,0,0,0.9)';
+    contexto.fillText(texto4, Xmin + 20, Ymin + 23);
+    contexto.fillText("Estándares de la OMS (Nacimiento a 60 meses), referencia de la OMS 2007 (61 meses a 19 años)", 155, 13);
+    contexto.fillText("Edad(meses)", 310, 420);
+    contexto.save();
+    contexto.translate(10, 200);
+    contexto.rotate(-Math.PI / 2);
+    contexto.textAlign = 'center';
+    contexto.fillText('Indice de masa corporal', 0, 0);
+    contexto.restore();
+    contexto.closePath();
+    contexto.beginPath();
+    contexto.strokeStyle = 'rgba(185,185,185,0.2)';
 
-  var lnTalla = tallaini;
-  var i;
-  for (i = 0; i <= valorY; i += 1) {
-    var y = Ymax - Math.round(i * scalaY);
-    contexto.moveTo(Xmin, y);  //(Y,X) traza las lineas horizontales
-    contexto.lineTo(Xmax, y);
-    if (i % interY == 0) {
-      contexto.moveTo(Xmin, y);
+    var lnTalla = tallaini;
+    var i;
+    for (i = 0; i <= valorY; i += 1) {
+      var y = Ymax - Math.round(i * scalaY);
+      contexto.moveTo(Xmin, y);  //(Y,X) traza las lineas horizontales
       contexto.lineTo(Xmax, y);
-      contexto.font = '9px "Arial"';
-      if (lnTalla > tallaini) {
-        contexto.fillText(lnTalla, 17, y + 3);
+      if (i % interY == 0) {
+        contexto.moveTo(Xmin, y);
+        contexto.lineTo(Xmax, y);
+        contexto.font = '9px "Arial"';
+        if (lnTalla > tallaini) {
+          contexto.fillText(lnTalla, 17, y + 3);
+        }
+        lnTalla += interY;
       }
-      lnTalla += interY;
     }
-  }
 
-  var lnMeses = mesini;
-  var i;
-  for (i = 0; i <= valorX; i += 1) {
-    var x = Xmin + Math.round(i * scalaX);
-    contexto.moveTo(x, Ymin);  //(Y,X) traza las lineas verticales
-    contexto.lineTo(x, Ymax);
-    if (i % interX == 0) {
-      contexto.moveTo(x, Ymin);
+    var lnMeses = mesini;
+    var i;
+    for (i = 0; i <= valorX; i += 1) {
+      var x = Xmin + Math.round(i * scalaX);
+      contexto.moveTo(x, Ymin);  //(Y,X) traza las lineas verticales
       contexto.lineTo(x, Ymax);
-      contexto.font = '9px "Arial"';
-      if (lnMeses <= mesmax) {
-        contexto.fillText(lnMeses, x - 5, Ymax + 15);
+      if (i % interX == 0) {
+        contexto.moveTo(x, Ymin);
+        contexto.lineTo(x, Ymax);
+        contexto.font = '9px "Arial"';
+        if (lnMeses <= mesmax) {
+          contexto.fillText(lnMeses, x - 5, Ymax + 15);
+        }
+        lnMeses += interX;
       }
-      lnMeses += interX;
     }
-  }
-  contexto.lineWidth = 1;
-  contexto.stroke();
-  contexto.closePath();
+    contexto.lineWidth = 1;
+    contexto.stroke();
+    contexto.closePath();
 
-  // traza las coordenadas de las medidas
-  contexto.fillStyle = 'rgba(255,255,255,0.5)';
-  contexto.fillRect(Xmin + 10, Ymin + 10, 190, 20);
-  contexto.font = 'bold 9px "Arial"';
-  contexto.fillStyle = 'rgba(0,0,0,0.9)';
-  contexto.fillText(texto4, Xmin + 20, Ymin + 23);
+    // traza las coordenadas de las medidas
+    contexto.fillStyle = 'rgba(255,255,255,0.5)';
+    contexto.fillRect(Xmin + 10, Ymin + 10, 190, 20);
+    contexto.font = 'bold 9px "Arial"';
+    contexto.fillStyle = 'rgba(0,0,0,0.9)';
+    contexto.fillText(texto4, Xmin + 20, Ymin + 23);
 
-  var datoX = mMeses;
-  var miPeso = peso;            // ojo se coloco esta linea
-  var miTalla = talla;          // esta tambien
-  lnIMC = Math.pow((miTalla / 100), 2);
-  lnIMC = miPeso / lnIMC;
-  lnIMC = lnIMC.toFixed(2);
+    var datoX = mMeses;
+    var miPeso = peso;            // ojo se coloco esta linea
+    var miTalla = talla;          // esta tambien
+    lnIMC = Math.pow((miTalla / 100), 2);
+    lnIMC = miPeso / lnIMC;
+    lnIMC = lnIMC.toFixed(2);
 
-  var datoY = lnIMC;
-  var PuntoX = Xmin + Math.round(scalaX * (datoX - mesini));
-  var PuntoY = Ymax - Math.round(scalaY * (datoY - lnLong));
-  contexto.beginPath();
-  contexto.strokeStyle = 'rgba(0,0,255,0.5)';
-  contexto.moveTo(PuntoX, Ymin + 1);
-  contexto.lineTo(PuntoX, Ymax - 1);
-  contexto.moveTo(Xmin + 1, PuntoY);
-  contexto.lineTo(Xmax - 1, PuntoY);
-  contexto.lineWidth = 1;
-  contexto.stroke();
-  contexto.closePath();
+    var datoY = lnIMC;
+    var PuntoX = Xmin + Math.round(scalaX * (datoX - mesini));
+    var PuntoY = Ymax - Math.round(scalaY * (datoY - lnLong));
+    contexto.beginPath();
+    contexto.strokeStyle = 'rgba(0,0,255,0.5)';
+    contexto.moveTo(PuntoX, Ymin + 1);
+    contexto.lineTo(PuntoX, Ymax - 1);
+    contexto.moveTo(Xmin + 1, PuntoY);
+    contexto.lineTo(Xmax - 1, PuntoY);
+    contexto.lineWidth = 1;
+    contexto.stroke();
+    contexto.closePath();
 
-  contexto.lineWidth = 1;
-  var lnMeses = aZIMC[0][1] - mesini;
-  //var lnZ3n = aZIMC[0][5];
-  var lnZ2n = aZIMC[0][6];
-  var lnZ1n = aZIMC[0][7];
-  var lnZ0 = aZIMC[0][8];
-  var lnZ1 = aZIMC[0][9];
-  var lnZ2 = aZIMC[0][10];
-  var lnZ3 = aZIMC[0][11];
+    contexto.lineWidth = 1;
+    var lnMeses = aZIMC[0][1] - mesini;
+    //var lnZ3n = aZIMC[0][5];
+    var lnZ2n = aZIMC[0][6];
+    var lnZ1n = aZIMC[0][7];
+    var lnZ0 = aZIMC[0][8];
+    var lnZ1 = aZIMC[0][9];
+    var lnZ2 = aZIMC[0][10];
+    var lnZ3 = aZIMC[0][11];
 
-  var x0 = Xmin + Math.round(scalaX * (lnMeses));
-  //var y03n = Ymax - Math.round(scalaY * (lnZ3n - lnLong));
-  var y03 = Ymax - Math.round(scalaY * (lnZ3 - lnLong));
-  var y02n = Ymax - Math.round(scalaY * (lnZ2n - lnLong));
-  var y02 = Ymax - Math.round(scalaY * (lnZ2 - lnLong));
-  var y01n = Ymax - Math.round(scalaY * (lnZ1n - lnLong));
-  var y01 = Ymax - Math.round(scalaY * (lnZ1 - lnLong));
-  var y0M = Ymax - Math.round(scalaY * (lnZ0 - lnLong));
+    var x0 = Xmin + Math.round(scalaX * (lnMeses));
+    //var y03n = Ymax - Math.round(scalaY * (lnZ3n - lnLong));
+    var y03 = Ymax - Math.round(scalaY * (lnZ3 - lnLong));
+    var y02n = Ymax - Math.round(scalaY * (lnZ2n - lnLong));
+    var y02 = Ymax - Math.round(scalaY * (lnZ2 - lnLong));
+    var y01n = Ymax - Math.round(scalaY * (lnZ1n - lnLong));
+    var y01 = Ymax - Math.round(scalaY * (lnZ1 - lnLong));
+    var y0M = Ymax - Math.round(scalaY * (lnZ0 - lnLong));
 
-  for (i = 0; i < Regs; i++) {
-    var lnMeses = aZIMC[i][1] - mesini;
-    //var lnZ3n = aZTE[i][5];
-    var lnZ2n = aZIMC[i][6];
-    var lnZ1n = aZIMC[i][7];
-    var lnZ0 = aZIMC[i][8];
-    var lnZ1 = aZIMC[i][9];
-    var lnZ2 = aZIMC[i][10];
-    var lnZ3 = aZIMC[i][11];
-    var x1 = Xmin + Math.round(scalaX * lnMeses);
+    for (i = 0; i < Regs; i++) {
+      var lnMeses = aZIMC[i][1] - mesini;
+      //var lnZ3n = aZTE[i][5];
+      var lnZ2n = aZIMC[i][6];
+      var lnZ1n = aZIMC[i][7];
+      var lnZ0 = aZIMC[i][8];
+      var lnZ1 = aZIMC[i][9];
+      var lnZ2 = aZIMC[i][10];
+      var lnZ3 = aZIMC[i][11];
+      var x1 = Xmin + Math.round(scalaX * lnMeses);
 
-    // LINEAS ROJA +SD3
-    if (mMeses < 60) {                //0
+      // LINEAS ROJA +SD3
+      if (mMeses < 60) {                //0
+        contexto.beginPath();
+        contexto.strokeStyle = 'rgba(255,0,0)'; // linea roja +3D
+        var y3 = Ymax - Math.round(scalaY * (lnZ3 - lnLong));
+        contexto.moveTo(x0, y03);
+        contexto.lineTo(x1, y3);
+        var y03 = y3;
+        contexto.stroke();
+        contexto.closePath();
+      }
+
+      // LINEAS ROJA +SD2 
       contexto.beginPath();
-      contexto.strokeStyle = 'rgba(255,0,0)'; // linea roja +3D
-      var y3 = Ymax - Math.round(scalaY * (lnZ3 - lnLong));
-      contexto.moveTo(x0, y03);
-      contexto.lineTo(x1, y3);
-      var y03 = y3;
+      if (mMeses < 60) {                //1
+        contexto.strokeStyle = 'rgba(255,0,0, 0.5)'; // linea roja +2D
+      } else {
+        contexto.strokeStyle = 'rgba(255,0,0)'; // linea roja +2D 
+      }
+      var y2 = Ymax - Math.round(scalaY * (lnZ2 - lnLong));
+      contexto.moveTo(x0, y02);
+      contexto.lineTo(x1, y2);
+      var y02 = y2;
       contexto.stroke();
       contexto.closePath();
-    }
 
-    // LINEAS ROJA +SD2 
-    contexto.beginPath();
-    if (mMeses < 60) {                //1
-      contexto.strokeStyle = 'rgba(255,0,0, 0.5)'; // linea roja +2D
-    } else {
-      contexto.strokeStyle = 'rgba(255,0,0)'; // linea roja +2D 
-    }
-    var y2 = Ymax - Math.round(scalaY * (lnZ2 - lnLong));
-    contexto.moveTo(x0, y02);
-    contexto.lineTo(x1, y2);
-    var y02 = y2;
-    contexto.stroke();
-    contexto.closePath();
-
-    // LINEA AMARILLA +SD1
-    contexto.beginPath();
-    if (mMeses < 60) {                //2
-      contexto.strokeStyle = 'rgba(210,169,53)'; // linea amarilla +1D
-    } else {
-      contexto.strokeStyle = 'rgba(255,0,0, 0.5)'; // linea roja +1D   
-    }
-    var y1 = Ymax - Math.round(scalaY * (lnZ1 - lnLong));
-    contexto.moveTo(x0, y01);
-    contexto.lineTo(x1, y1);
-    var y01 = y1;
-    contexto.stroke();
-    contexto.closePath();
-
-    // MEDIA
-    contexto.beginPath();
-    if (mMeses < 60) {                        //3
-      contexto.strokeStyle = 'rgba(0,128,0)';         // linea amarillae
-    } else {
-      contexto.strokeStyle = 'rgba(0,128,0)';             // linea verde 
-    }
-    var yM = Ymax - Math.round(scalaY * (lnZ0 - lnLong));
-    contexto.moveTo(x0, y0M);
-    contexto.lineTo(x1, yM);
-    var y0M = yM;
-    contexto.stroke();
-    contexto.closePath();
-
-    // LINEA NEGRA -SD1 Y -2SD
-    contexto.beginPath();
-    if (mMeses < 60) {            //4
-      contexto.strokeStyle = 'rgba(0,0,0)';      // linea verde -1D
-    } else {
-      contexto.strokeStyle = 'rgba(210,169,53)';      // linea amarilla -1D
-    }
-    var y1n = Ymax - Math.round(scalaY * (lnZ1n - lnLong));
-    contexto.moveTo(x0, y01n);
-    contexto.lineTo(x1, y1n);
-    var y01n = y1n;
-    contexto.stroke();
-
-    // LINEA NEGRA -SD2
-    contexto.beginPath();
-    if (mMeses < 60) {            //5
-      contexto.strokeStyle = 'rgba(0,0,0)'; // linea negra -2D
-    } else {
-      contexto.strokeStyle = 'rgba(255,0,0)'; // linea roja -2D
-    }
-    var y2n = Ymax - Math.round(scalaY * (lnZ2n - lnLong));
-    contexto.moveTo(x0, y02n);
-    contexto.lineTo(x1, y2n);
-    var y02n = y2n;
-    contexto.stroke();
-
-    var x0 = x1;
-    if (i == Regs - 1) {
-      contexto.font = 'bold 9px "Arial"';
-      contexto.fillStyle = 'rgba(255,0,0)';
-      if (mMeses < 60) {                            //0
-        contexto.fillStyle = 'rgba(255,0,0)';
-        contexto.fillText("+3SD", Xmax - 30, y3 + 2);
-      }
-
-      if (mMeses < 60) {                            //1
-        contexto.fillStyle = 'rgba(255,0,0, 0.5)';
+      // LINEA AMARILLA +SD1
+      contexto.beginPath();
+      if (mMeses < 60) {                //2
+        contexto.strokeStyle = 'rgba(210,169,53)'; // linea amarilla +1D
       } else {
-        contexto.fillStyle = 'rgba(255,0,0)';
+        contexto.strokeStyle = 'rgba(255,0,0, 0.5)'; // linea roja +1D   
       }
-      contexto.fillText("+2SD", Xmax - 30, y2 + 2);
+      var y1 = Ymax - Math.round(scalaY * (lnZ1 - lnLong));
+      contexto.moveTo(x0, y01);
+      contexto.lineTo(x1, y1);
+      var y01 = y1;
+      contexto.stroke();
+      contexto.closePath();
 
-      if (mMeses < 60) {                            //2
-        contexto.fillStyle = 'rgba(210,169,53)';
-        contexto.fillText("+1SD", Xmax - 30, y1 + 2);
-      } else {
-        contexto.fillStyle = 'rgba(255,0,0,0.5)';
-        contexto.fillText("+1SD", Xmax - 30, y1 + 2);
-      }
-
+      // MEDIA
+      contexto.beginPath();
       if (mMeses < 60) {                        //3
-        contexto.fillStyle = 'rgba(0,128,0)';
-        contexto.fillText("Media", Xmax - 30, yM + 2);
+        contexto.strokeStyle = 'rgba(0,128,0)';         // linea amarillae
       } else {
-        contexto.fillStyle = 'rgba(0,128,0)';
-        contexto.fillText("Media", Xmax - 30, yM + 2);
+        contexto.strokeStyle = 'rgba(0,128,0)';             // linea verde 
       }
+      var yM = Ymax - Math.round(scalaY * (lnZ0 - lnLong));
+      contexto.moveTo(x0, y0M);
+      contexto.lineTo(x1, yM);
+      var y0M = yM;
+      contexto.stroke();
+      contexto.closePath();
 
-      if (mMeses < 60) {                        //4
-        contexto.fillStyle = 'rgba(0,0,0)';
-        contexto.fillText("-1SD", Xmax - 30, y1n + 2);
+      // LINEA NEGRA -SD1 Y -2SD
+      contexto.beginPath();
+      if (mMeses < 60) {            //4
+        contexto.strokeStyle = 'rgba(0,0,0)';      // linea verde -1D
       } else {
-        contexto.fillStyle = 'rgba(210,169,53)';
-        contexto.fillText("-1SD", Xmax - 30, y1n + 2);
+        contexto.strokeStyle = 'rgba(210,169,53)';      // linea amarilla -1D
       }
+      var y1n = Ymax - Math.round(scalaY * (lnZ1n - lnLong));
+      contexto.moveTo(x0, y01n);
+      contexto.lineTo(x1, y1n);
+      var y01n = y1n;
+      contexto.stroke();
 
-      if (mMeses < 60) {                        //5
-        contexto.fillStyle = 'rgba(0,0,0)';
-        contexto.fillText("-2D", Xmax - 30, y2n + 2);
+      // LINEA NEGRA -SD2
+      contexto.beginPath();
+      if (mMeses < 60) {            //5
+        contexto.strokeStyle = 'rgba(0,0,0)'; // linea negra -2D
       } else {
+        contexto.strokeStyle = 'rgba(255,0,0)'; // linea roja -2D
+      }
+      var y2n = Ymax - Math.round(scalaY * (lnZ2n - lnLong));
+      contexto.moveTo(x0, y02n);
+      contexto.lineTo(x1, y2n);
+      var y02n = y2n;
+      contexto.stroke();
+
+      var x0 = x1;
+      if (i == Regs - 1) {
+        contexto.font = 'bold 9px "Arial"';
         contexto.fillStyle = 'rgba(255,0,0)';
-        contexto.fillText("-2SD", Xmax - 30, y2n + 2);
+        if (mMeses < 60) {                            //0
+          contexto.fillStyle = 'rgba(255,0,0)';
+          contexto.fillText("+3SD", Xmax - 30, y3 + 2);
+        }
+
+        if (mMeses < 60) {                            //1
+          contexto.fillStyle = 'rgba(255,0,0, 0.5)';
+        } else {
+          contexto.fillStyle = 'rgba(255,0,0)';
+        }
+        contexto.fillText("+2SD", Xmax - 30, y2 + 2);
+
+        if (mMeses < 60) {                            //2
+          contexto.fillStyle = 'rgba(210,169,53)';
+          contexto.fillText("+1SD", Xmax - 30, y1 + 2);
+        } else {
+          contexto.fillStyle = 'rgba(255,0,0,0.5)';
+          contexto.fillText("+1SD", Xmax - 30, y1 + 2);
+        }
+
+        if (mMeses < 60) {                        //3
+          contexto.fillStyle = 'rgba(0,128,0)';
+          contexto.fillText("Media", Xmax - 30, yM + 2);
+        } else {
+          contexto.fillStyle = 'rgba(0,128,0)';
+          contexto.fillText("Media", Xmax - 30, yM + 2);
+        }
+
+        if (mMeses < 60) {                        //4
+          contexto.fillStyle = 'rgba(0,0,0)';
+          contexto.fillText("-1SD", Xmax - 30, y1n + 2);
+        } else {
+          contexto.fillStyle = 'rgba(210,169,53)';
+          contexto.fillText("-1SD", Xmax - 30, y1n + 2);
+        }
+
+        if (mMeses < 60) {                        //5
+          contexto.fillStyle = 'rgba(0,0,0)';
+          contexto.fillText("-2D", Xmax - 30, y2n + 2);
+        } else {
+          contexto.fillStyle = 'rgba(255,0,0)';
+          contexto.fillText("-2SD", Xmax - 30, y2n + 2);
+        }
       }
     }
-  }
-    };
+  };
 
   // ********************* peso/ edad *************************
   function graficaZPE() {         //Peso / Edad
@@ -952,220 +946,218 @@
     mMeses = lnEdad;
     var canvas = document.getElementById('graficas');
     var contexto = canvas.getContext('2d');
-    var aZPE = {{ azpe }
-  };
-  var Regs = aZPE.length;
-  var valorX = 0;
-  var valorY = 0;
-  var tallaini = 0;
-  var pesoini = 0;
+    var aZPE = {{ azpe }};
+    var Regs = aZPE.length;
+    var valorX = 0;
+    var valorY = 0;
+    var tallaini = 0;
+    var pesoini = 0;
 
-  if (mMeses <= 24) {
-    valorX = 26;
-    valorY = 18;
-    mesini = 0;
-    pesoini = 0;
-    var mesmax = 24;
-    var interX = 2;
-    var interY = 2;
-    var lnLong = 0;
-  }
+    if (mMeses <= 24) {
+      valorX = 26;
+      valorY = 18;
+      mesini = 0;
+      pesoini = 0;
+      var mesmax = 24;
+      var interX = 2;
+      var interY = 2;
+      var lnLong = 0;
+    }
 
-  if (mMeses > 24 && mMeses <= 60) {
-    var valorX = 38;
-    var valorY = 20;
-    pesoini = 8;
-    mesini = 24;
-    var mesmax = 60;
-    var interX = 2;
-    var interY = 2;
-    var lnLong = 8;
-  }
+    if (mMeses > 24 && mMeses <= 60) {
+      var valorX = 38;
+      var valorY = 20;
+      pesoini = 8;
+      mesini = 24;
+      var mesmax = 60;
+      var interX = 2;
+      var interY = 2;
+      var lnLong = 8;
+    }
 
-  var scalaX = (Xmax - Xmin) / valorX;
-  var scalaY = (Ymax - Ymin) / valorY;
+    var scalaX = (Xmax - Xmin) / valorX;
+    var scalaY = (Ymax - Ymin) / valorY;
 
-  contexto.beginPath();
-  contexto.clearRect(0, 0, canvas.width, canvas.height);
-  contexto.lineWidth = 1;
-  contexto.strokeStyle = 'rgba(0,0,0,0.5)';
-  contexto.moveTo(Xmin, Ymin);
-  contexto.lineTo(Xmin, Ymax);
-  contexto.moveTo(Xmin, Ymax);
-  contexto.lineTo(Xmax, Ymax);
-  contexto.moveTo(Xmax, Ymax);
-  contexto.lineTo(Xmax, Ymin);
-  contexto.moveTo(Xmax, Ymin);
-  contexto.lineTo(Xmin, Ymin);
-  contexto.stroke();
-  contexto.strokeRect(Xmin + 10, Ymin + 10, 190, 20);
-  contexto.font = 'bold 9px "Arial"';
-  contexto.fillStyle = 'rgba(0,0,0,0.9)';
-  contexto.fillText(texto2, Xmin + 20, Ymin + 23);
-  contexto.fillText("Estándares de la OMS (Nacimiento a 60 meses), referencia de la OMS 2007 (61 meses a 19 años)", 155, 13);
-  contexto.fillText("Edad(meses)", 310, 420);
-  contexto.save();
-  contexto.translate(10, 220);
-  contexto.rotate(-Math.PI / 2);
-  contexto.textAlign = 'center';
-  contexto.fillText('Peso(Kg)', 0, 0);
-  contexto.restore();
-  contexto.closePath();
-  contexto.beginPath();
-  contexto.strokeStyle = 'rgba(185,185,185,0.2)';
+    contexto.beginPath();
+    contexto.clearRect(0, 0, canvas.width, canvas.height);
+    contexto.lineWidth = 1;
+    contexto.strokeStyle = 'rgba(0,0,0,0.5)';
+    contexto.moveTo(Xmin, Ymin);
+    contexto.lineTo(Xmin, Ymax);
+    contexto.moveTo(Xmin, Ymax);
+    contexto.lineTo(Xmax, Ymax);
+    contexto.moveTo(Xmax, Ymax);
+    contexto.lineTo(Xmax, Ymin);
+    contexto.moveTo(Xmax, Ymin);
+    contexto.lineTo(Xmin, Ymin);
+    contexto.stroke();
+    contexto.strokeRect(Xmin + 10, Ymin + 10, 190, 20);
+    contexto.font = 'bold 9px "Arial"';
+    contexto.fillStyle = 'rgba(0,0,0,0.9)';
+    contexto.fillText(texto2, Xmin + 20, Ymin + 23);
+    contexto.fillText("Estándares de la OMS (Nacimiento a 60 meses), referencia de la OMS 2007 (61 meses a 19 años)", 155, 13);
+    contexto.fillText("Edad(meses)", 310, 420);
+    contexto.save();
+    contexto.translate(10, 220);
+    contexto.rotate(-Math.PI / 2);
+    contexto.textAlign = 'center';
+    contexto.fillText('Peso(Kg)', 0, 0);
+    contexto.restore();
+    contexto.closePath();
+    contexto.beginPath();
+    contexto.strokeStyle = 'rgba(185,185,185,0.2)';
 
-  var lnPeso = pesoini;
-  var i;
-  for (i = 0; i <= valorY; i++) {
-    var y = Ymax - Math.round(i * scalaY);
-    contexto.moveTo(Xmin, y);  //(Y,X) traza las lineas horizontales
-    contexto.lineTo(Xmax, y);
-    if (i % interY == 0) {
-      contexto.moveTo(Xmin, y);
+    var lnPeso = pesoini;
+    var i;
+    for (i = 0; i <= valorY; i++) {
+      var y = Ymax - Math.round(i * scalaY);
+      contexto.moveTo(Xmin, y);  //(Y,X) traza las lineas horizontales
       contexto.lineTo(Xmax, y);
-      contexto.font = '9px "Arial"';
-      if (lnPeso > 0) {
-        contexto.fillText(lnPeso, 15, y + 3);
+      if (i % interY == 0) {
+        contexto.moveTo(Xmin, y);
+        contexto.lineTo(Xmax, y);
+        contexto.font = '9px "Arial"';
+        if (lnPeso > 0) {
+          contexto.fillText(lnPeso, 15, y + 3);
+        }
+        lnPeso += interY;
       }
-      lnPeso += interY;
     }
-  }
 
-  var lnMeses = mesini;
-  var i;
-  for (i = 0; i <= valorX; i += 1) {
-    var x = Xmin + Math.round(i * scalaX);
-    contexto.moveTo(x, Ymin);  //(Y,X) traza las lineas verticales
-    contexto.lineTo(x, Ymax);
-    if (i % 2 == 0) {
-      contexto.moveTo(x, Ymin);
+    var lnMeses = mesini;
+    var i;
+    for (i = 0; i <= valorX; i += 1) {
+      var x = Xmin + Math.round(i * scalaX);
+      contexto.moveTo(x, Ymin);  //(Y,X) traza las lineas verticales
       contexto.lineTo(x, Ymax);
-      contexto.font = '9px "Arial"';
-      if (lnMeses <= mesmax) {
-        contexto.fillText(lnMeses, x - 5, Ymax + 15);
+      if (i % 2 == 0) {
+        contexto.moveTo(x, Ymin);
+        contexto.lineTo(x, Ymax);
+        contexto.font = '9px "Arial"';
+        if (lnMeses <= mesmax) {
+          contexto.fillText(lnMeses, x - 5, Ymax + 15);
+        }
+        lnMeses += 2;
       }
-      lnMeses += 2;
     }
-  }
 
-  contexto.lineWidth = 1;
-  contexto.stroke();
-  contexto.closePath();
-
-  // traza las coordenadas de las medidas
-  contexto.fillStyle = 'rgba(255,255,255,0.5)';
-  contexto.fillRect(Xmin + 10, Ymin + 10, 190, 20);
-  contexto.font = 'bold 9px "Arial"';
-  contexto.fillStyle = 'rgba(0,0,0,0.9)';
-  contexto.fillText(texto2, Xmin + 20, Ymin + 23);
-  //
-
-  var datoX = mMeses;         //mMeses;
-  var datoY = peso;           //peso;
-  var PuntoX = Xmin + Math.round(scalaX * (datoX - mesini));
-  var PuntoY = Ymax - Math.round(scalaY * (datoY - lnLong));
-
-  contexto.beginPath();
-  contexto.strokeStyle = 'rgba(0,0,255,0.5)';
-  contexto.moveTo(PuntoX, Ymin + 1);
-  contexto.lineTo(PuntoX, Ymax - 1);
-  contexto.moveTo(Xmin + 1, PuntoY);
-  contexto.lineTo(Xmax - 1, PuntoY);
-  contexto.lineWidth = 1;
-  contexto.stroke();
-  contexto.closePath();
-
-  contexto.lineWidth = 1;
-  var lnMeses = aZPE[0][1] - mesini;
-  //var lnZ3n = aZPE[0][5];
-  var lnZ2n = aZPE[0][6];
-  var lnZ1n = aZPE[0][7];
-  var lnZ0 = aZPE[0][8];
-  var lnZ1 = aZPE[0][9];
-  var lnZ2 = aZPE[0][10];
-  //var lnZ3 = aZPE[0][11];
-
-  var x0 = Xmin + Math.round(scalaX * lnMeses);
-  //var y03n = Ymax - Math.round(scalaY * (lnZ3n - lnLong));
-  //var y03 = Ymax - Math.round(scalaY * (lnZ3 - lnLong));
-  var y02n = Ymax - Math.round(scalaY * (lnZ2n - lnLong));
-  var y02 = Ymax - Math.round(scalaY * (lnZ2 - lnLong));
-  var y01n = Ymax - Math.round(scalaY * (lnZ1n - lnLong));
-  var y01 = Ymax - Math.round(scalaY * (lnZ1 - lnLong));
-  var y0M = Ymax - Math.round(scalaY * (lnZ0 - lnLong));
-
-  for (i = 0; i <= Regs; i++) {
-    var lnMeses = aZPE[i][1] - mesini;
-    //var lnZ3n = aZPE[i][5];
-    var lnZ2n = aZPE[i][6];
-    var lnZ1n = aZPE[i][7];
-    var lnZ0 = aZPE[i][8];
-    var lnZ1 = aZPE[i][9];
-    var lnZ2 = aZPE[i][10];
-    //var lnZ3 = aZPE[i][11];
-    var x1 = Xmin + Math.round(scalaX * lnMeses);
-
-    // LINEAS NEGRAS SD2 y SD1
-    contexto.beginPath();
-    contexto.strokeStyle = 'rgba(0,0,0)'; // linea negra +2D
-    var y2 = Ymax - Math.round(scalaY * (lnZ2 - lnLong));
-    contexto.moveTo(x0, y02);
-    contexto.lineTo(x1, y2);
-    var y02 = y2;
+    contexto.lineWidth = 1;
     contexto.stroke();
     contexto.closePath();
 
-    var y1 = Ymax - Math.round(scalaY * (lnZ1 - lnLong));
-    contexto.moveTo(x0, y01);
-    contexto.lineTo(x1, y1);
-    var y01 = y1;
+    // traza las coordenadas de las medidas
+    contexto.fillStyle = 'rgba(255,255,255,0.5)';
+    contexto.fillRect(Xmin + 10, Ymin + 10, 190, 20);
+    contexto.font = 'bold 9px "Arial"';
+    contexto.fillStyle = 'rgba(0,0,0,0.9)';
+    contexto.fillText(texto2, Xmin + 20, Ymin + 23);
+    //
+
+    var datoX = mMeses;         //mMeses;
+    var datoY = peso;           //peso;
+    var PuntoX = Xmin + Math.round(scalaX * (datoX - mesini));
+    var PuntoY = Ymax - Math.round(scalaY * (datoY - lnLong));
+
+    contexto.beginPath();
+    contexto.strokeStyle = 'rgba(0,0,255,0.5)';
+    contexto.moveTo(PuntoX, Ymin + 1);
+    contexto.lineTo(PuntoX, Ymax - 1);
+    contexto.moveTo(Xmin + 1, PuntoY);
+    contexto.lineTo(Xmax - 1, PuntoY);
+    contexto.lineWidth = 1;
     contexto.stroke();
     contexto.closePath();
 
-    // MEDIA
-    contexto.beginPath();
-    contexto.strokeStyle = 'rgba(0,128,0)';     // linea verde
-    var yM = Ymax - Math.round(scalaY * (lnZ0 - lnLong));
-    contexto.moveTo(x0, y0M);
-    contexto.lineTo(x1, yM);
-    var y0M = yM;
-    contexto.stroke();
-    contexto.closePath();
+    contexto.lineWidth = 1;
+    var lnMeses = aZPE[0][1] - mesini;
+    //var lnZ3n = aZPE[0][5];
+    var lnZ2n = aZPE[0][6];
+    var lnZ1n = aZPE[0][7];
+    var lnZ0 = aZPE[0][8];
+    var lnZ1 = aZPE[0][9];
+    var lnZ2 = aZPE[0][10];
+    //var lnZ3 = aZPE[0][11];
 
-    // LINEA AMARILLA -SD1
-    contexto.beginPath();
-    contexto.strokeStyle = 'rgba(210,169,53)';      // linea amarilla -1D
-    var y1n = Ymax - Math.round(scalaY * (lnZ1n - lnLong));
-    contexto.moveTo(x0, y01n);
-    contexto.lineTo(x1, y1n);
-    var y01n = y1n;
-    contexto.stroke();
+    var x0 = Xmin + Math.round(scalaX * lnMeses);
+    //var y03n = Ymax - Math.round(scalaY * (lnZ3n - lnLong));
+    //var y03 = Ymax - Math.round(scalaY * (lnZ3 - lnLong));
+    var y02n = Ymax - Math.round(scalaY * (lnZ2n - lnLong));
+    var y02 = Ymax - Math.round(scalaY * (lnZ2 - lnLong));
+    var y01n = Ymax - Math.round(scalaY * (lnZ1n - lnLong));
+    var y01 = Ymax - Math.round(scalaY * (lnZ1 - lnLong));
+    var y0M = Ymax - Math.round(scalaY * (lnZ0 - lnLong));
 
-    // LINEA ROJA -SD1
-    contexto.beginPath();
-    contexto.strokeStyle = 'rgba(255,0,0)'; // linea roja -2D
-    var y2n = Ymax - Math.round(scalaY * (lnZ2n - lnLong));
-    contexto.moveTo(x0, y02n);
-    contexto.lineTo(x1, y2n);
-    var y02n = y2n;
-    contexto.stroke();
+    for (i = 0; i <= Regs; i++) {
+      var lnMeses = aZPE[i][1] - mesini;
+      //var lnZ3n = aZPE[i][5];
+      var lnZ2n = aZPE[i][6];
+      var lnZ1n = aZPE[i][7];
+      var lnZ0 = aZPE[i][8];
+      var lnZ1 = aZPE[i][9];
+      var lnZ2 = aZPE[i][10];
+      //var lnZ3 = aZPE[i][11];
+      var x1 = Xmin + Math.round(scalaX * lnMeses);
 
-    var x0 = x1;
-    if (i == Regs - 1) {
-      contexto.font = 'bold 9px "Arial"';
-      contexto.fillStyle = 'rgba(0,0,0)';
-      contexto.fillText("+2SD", Xmax - 30, y2 + 2);
-      contexto.fillText("+1SD", Xmax - 30, y1 + 2);
-      contexto.fillStyle = 'rgba(0,128,0)';
-      contexto.fillText("Media", Xmax - 30, yM + 2);
-      contexto.fillStyle = 'rgba(210,169,53)';
-      contexto.fillText("-1SD", Xmax - 30, y1n + 2);
-      contexto.fillStyle = 'rgba(255,0,0)';
-      contexto.fillText("-2SD", Xmax - 30, y2n + 2);
+      // LINEAS NEGRAS SD2 y SD1
+      contexto.beginPath();
+      contexto.strokeStyle = 'rgba(0,0,0)'; // linea negra +2D
+      var y2 = Ymax - Math.round(scalaY * (lnZ2 - lnLong));
+      contexto.moveTo(x0, y02);
+      contexto.lineTo(x1, y2);
+      var y02 = y2;
+      contexto.stroke();
+      contexto.closePath();
+
+      var y1 = Ymax - Math.round(scalaY * (lnZ1 - lnLong));
+      contexto.moveTo(x0, y01);
+      contexto.lineTo(x1, y1);
+      var y01 = y1;
+      contexto.stroke();
+      contexto.closePath();
+
+      // MEDIA
+      contexto.beginPath();
+      contexto.strokeStyle = 'rgba(0,128,0)';     // linea verde
+      var yM = Ymax - Math.round(scalaY * (lnZ0 - lnLong));
+      contexto.moveTo(x0, y0M);
+      contexto.lineTo(x1, yM);
+      var y0M = yM;
+      contexto.stroke();
+      contexto.closePath();
+
+      // LINEA AMARILLA -SD1
+      contexto.beginPath();
+      contexto.strokeStyle = 'rgba(210,169,53)';      // linea amarilla -1D
+      var y1n = Ymax - Math.round(scalaY * (lnZ1n - lnLong));
+      contexto.moveTo(x0, y01n);
+      contexto.lineTo(x1, y1n);
+      var y01n = y1n;
+      contexto.stroke();
+
+      // LINEA ROJA -SD1
+      contexto.beginPath();
+      contexto.strokeStyle = 'rgba(255,0,0)'; // linea roja -2D
+      var y2n = Ymax - Math.round(scalaY * (lnZ2n - lnLong));
+      contexto.moveTo(x0, y02n);
+      contexto.lineTo(x1, y2n);
+      var y02n = y2n;
+      contexto.stroke();
+
+      var x0 = x1;
+      if (i == Regs - 1) {
+        contexto.font = 'bold 9px "Arial"';
+        contexto.fillStyle = 'rgba(0,0,0)';
+        contexto.fillText("+2SD", Xmax - 30, y2 + 2);
+        contexto.fillText("+1SD", Xmax - 30, y1 + 2);
+        contexto.fillStyle = 'rgba(0,128,0)';
+        contexto.fillText("Media", Xmax - 30, yM + 2);
+        contexto.fillStyle = 'rgba(210,169,53)';
+        contexto.fillText("-1SD", Xmax - 30, y1n + 2);
+        contexto.fillStyle = 'rgba(255,0,0)';
+        contexto.fillText("-2SD", Xmax - 30, y2n + 2);
+      }
     }
-  }
-    };
-
+  };
 
   if (window.addEventListener) {
     // for W3C DOM
