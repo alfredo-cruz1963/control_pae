@@ -369,7 +369,7 @@
       const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
 
       if (window.innerWidth < 600) {
-        const stream = navigator.mediaDevices.getUserMedia({ video: {facingMode: 'environment'} });
+        const stream = await navigator.mediaDevices.getUserMedia({ video: {facingMode: 'environment'} });
       }
 
       const videoEl = $('#inputVideo').get(0)
