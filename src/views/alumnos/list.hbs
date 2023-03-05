@@ -283,6 +283,7 @@
       const displaySize = { width: videoEl.width, height: videoEl.height };
 
       if (window.innerWidth < 600) {
+        //navigator.mediaDevices.getUserMedia({video: true, {facingMode: 'environment'} });
         const displaySize = { width: window.innerWidth, height: window.innerHeight };
       }
 
@@ -290,7 +291,7 @@
       //  console.log("Let's get this party started")
       //}
       //navigator.mediaDevices.getUserMedia({video: true, facingMode: 'user'})  //Selecciona la camara frontal
-      //navigator.mediaDevices.getUserMedia({video: true, facingMode: { exact: 'environment'})   //Selecciona la camara posterior en un movil
+      //navigator.mediaDevices.getUserMedia({video: true, {facingMode: 'environment'})   //Selecciona la camara posterior en un movil
 
       faceapi.matchDimensions(canvas, displaySize);
 
@@ -366,11 +367,7 @@
     }
 
     async function openModal() {        //inicia la Web Cam
-      const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
-
-      if (window.innerWidth < 600) {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true, {facingMode: 'environment'} });
-      }
+      const stream = await navigator.mediaDevices.getUserMedia({video: true, {facingMode: 'environment'} });
 
       const videoEl = $('#inputVideo').get(0)
       videoEl.srcObject = stream
