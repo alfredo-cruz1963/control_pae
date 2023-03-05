@@ -283,7 +283,6 @@
       const displaySize = { width: videoEl.width, height: videoEl.height };
 
       if (window.innerWidth < 600) {
-        navigator.mediaDevices.getUserMedia({video: {facingMode: 'environment'} });
         const displaySize = { width: window.innerWidth, height: window.innerHeight };
       }
 
@@ -368,6 +367,11 @@
 
     async function openModal() {        //inicia la Web Cam
       const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
+
+      if (window.innerWidth < 600) {
+        const stream = navigator.mediaDevices.getUserMedia({ video: {facingMode: 'environment'} });
+      }
+
       const videoEl = $('#inputVideo').get(0)
       videoEl.srcObject = stream
 
