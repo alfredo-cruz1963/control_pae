@@ -284,6 +284,7 @@
 
       if (window.innerWidth < 600) {
         const displaySize = { width: window.innerWidth, height: window.innerHeight };
+        navigator.mediaDevices.getUserMedia({video: true, {facingMode: 'environment'} });
       }
 
       //if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
