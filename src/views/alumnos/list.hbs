@@ -283,8 +283,8 @@
       const displaySize = { width: videoEl.width, height: videoEl.height };
 
       if (window.innerWidth < 600) {
-        const displaySize = { width: window.innerWidth, height: window.innerHeight };
         navigator.mediaDevices.getUserMedia({video: true, {facingMode: 'environment'} });
+        const displaySize = { width: window.innerWidth, height: window.innerHeight };
       }
 
       //if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
