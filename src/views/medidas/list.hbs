@@ -84,7 +84,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary float-right btnCaptura">Identificar</button>
+                <button type="button" id='btnCaptura' class="btn btn-primary float-right btnCaptura">Capturar</button>
               </div>
             </form>
           </div>
@@ -163,7 +163,11 @@
   var fotoQuery
   var distance
   var myCedula
+  const threshold = 0.6;
+
   const mcodSede = {{ user.codsede }}
+  const btnCapturaRostro = document.getElementById('btnCaptura');
+  btnCapturaRostro.disabled = true;
 
   async function onPlay() {
     const videoEl = $('#inputVideo').get(0)
@@ -186,10 +190,19 @@
       .withFaceLandmarks()
 
     if (result) {
+      const detection = result.detection ;
+      let score = detection.score * 100;
+
       const resizedResult = faceapi.resizeResults(result, displaySize);
 
-      faceapi.draw.drawDetections(canvas, resizedResult)
-      faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
+      faceapi.draw.drawDetections(canvas, resizedResult);
+      faceapi.draw.drawFaceLandmarks(canvas, resizedResult);
+
+      if (score > 85){
+        btnCapturaRostro.disabled = false;
+      }else {
+        btnCapturaRostro.disabled = true;
+      }
     }
     setTimeout(() => onPlay(), 750)
   }
@@ -212,8 +225,6 @@
       rostroExtract.src = canvas.toDataURL("image/jpeg")
       //const rostro = canvas.toDataURL().split('base64,')[1] 
       //const fotoQuery = canvas.toDataURL("image/jpeg")
-      console.log("Capturada Imagen")
-      //console.log(fotoQuery)
     })
     identificar()
 
@@ -252,8 +263,7 @@
           //console.log(bestMatch.toString())
           identifica = true
           myCedula = bestMatch.label
-          break
-          //alert(bestMatch.label + " ("+bestMatch.distance+")")  
+          break 
         }
       }
     }
@@ -275,7 +285,6 @@
       success: function (res) {           //si la petición fue exitosa
         datos = res
         //console.log(datos)
-        console.log("datos traidos")
       }
     });
   }

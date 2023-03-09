@@ -217,7 +217,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary float-right btnCaptura">Capturar Rostro</button>
+            <button type="button" id='btnCaptura' class="btn btn-primary float-right btnCaptura">Capturar</button>
           </div>
         </div>
       </div>
@@ -276,6 +276,10 @@
     var fotoQuery = null
     var img = null
     var mCedula
+    const threshold = 0.6;
+
+    const btnCapturaRostro = document.getElementById('btnCaptura');
+    btnCapturaRostro.disabled = true;
 
     async function onPlay() {
       const videoEl = $('#inputVideo').get(0)
@@ -303,12 +307,21 @@
         .detectSingleFace(videoEl, options)
         .withFaceLandmarks()
 
-      if (result) {
-        const resizedResult = faceapi.resizeResults(result, displaySize);
+    if (result) {
+      const detection = result.detection ;
+      let score = detection.score * 100;
 
-        faceapi.draw.drawDetections(canvas, resizedResult)
-        faceapi.draw.drawFaceLandmarks(canvas, resizedResult)
+      const resizedResult = faceapi.resizeResults(result, displaySize);
+
+      faceapi.draw.drawDetections(canvas, resizedResult);
+      faceapi.draw.drawFaceLandmarks(canvas, resizedResult);
+
+      if (score > 85){
+        btnCapturaRostro.disabled = false;
+      }else {
+        btnCapturaRostro.disabled = true;
       }
+    }
       setTimeout(() => onPlay(), 750)
     }
 
